@@ -21,8 +21,8 @@ module.exports = function () {
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
     type: { type: String, required: true },
-    // dumpsterID
-    // userID
+    dumpsterID: { type: Schema.Types.ObjectId, required: true },
+    userID: { type: Schema.Types.ObjectId, required: true },
   });
   const DepositsSchema = new Schema<IDeposits>({
     deposits: { type: [DepositSchema], required: true },

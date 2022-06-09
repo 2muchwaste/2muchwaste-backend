@@ -25,7 +25,7 @@ module.exports = function () {
     date: { type: Date, required: true },
     text: { type: String, required: true },
     read: { type: Boolean, required: true },
-    // depositID
+    depositID: { type: Schema.Types.ObjectId, required: true },
   });
   const UserSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true, lowercase: true },
