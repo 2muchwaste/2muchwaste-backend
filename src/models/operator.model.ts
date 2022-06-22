@@ -7,7 +7,7 @@ interface IEmpty {
   dumpsterID: Schema.Types.ObjectId;
 }
 
-export interface IOperator {
+export interface OperatorModel {
   email: string;
   name: string;
   surname: string;
@@ -25,7 +25,7 @@ module.exports = function () {
     date: { type: Date, required: true },
     dumpsterID: { type: Schema.Types.ObjectId, required: true },
   });
-  const OperatorSchema = new Schema<IOperator>({
+  const OperatorSchema = new Schema<OperatorModel>({
     email: { type: String, required: true, unique: true, lowercase: true },
     name: { type: String, required: true },
     surname: { type: String, required: true },

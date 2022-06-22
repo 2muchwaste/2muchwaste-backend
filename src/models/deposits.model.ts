@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 
 const mongoose = require('mongoose');
 
-interface IDeposit {
+interface DepositModel {
   date: Date;
   quantity: number;
   type: string;
@@ -11,12 +11,12 @@ interface IDeposit {
   userID: Schema.Types.ObjectId;
 }
 
-interface IDeposits {
-  deposits: IDeposit[];
+interface DepositsModel {
+  deposits: DepositModel[];
 }
 
 module.exports = function () {
-  const DepositSchema = new Schema<IDeposit>({
+  const DepositSchema = new Schema<DepositModel>({
     date: { type: Date, required: true },
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
@@ -24,7 +24,7 @@ module.exports = function () {
     dumpsterID: { type: Schema.Types.ObjectId, required: true },
     userID: { type: Schema.Types.ObjectId, required: true },
   });
-  const DepositsSchema = new Schema<IDeposits>({
+  const DepositsSchema = new Schema<DepositsModel>({
     deposits: { type: [DepositSchema], required: true },
   });
   return mongoose.model('Deposits', DepositsSchema);

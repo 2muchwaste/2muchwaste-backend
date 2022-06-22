@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 
 const mongoose = require('mongoose');
 
-export interface IDumpster {
+export interface DumpsterModel {
   type: string;
   latitude: number;
   longitude: number;
@@ -14,7 +14,7 @@ export interface IDumpster {
 }
 
 module.exports = function () {
-  const DumpsterSchema = new Schema<IDumpster>({
+  const DumpsterSchema = new Schema<DumpsterModel>({
     type: { type: String, required: true },
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },

@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 
 const mongoose = require('mongoose');
 
-interface INotification {
+interface NotificationModel {
   date: Date;
   text: string;
   read: boolean;
@@ -17,11 +17,11 @@ export interface IUser {
   surname: string;
   cf: string;
   address: string;
-  notifications: INotification[];
+  notifications: NotificationModel[];
 }
 
 module.exports = function () {
-  const NotificationSchema = new Schema<INotification>({
+  const NotificationSchema = new Schema<NotificationModel>({
     date: { type: Date, required: true },
     text: { type: String, required: true },
     read: { type: Boolean, required: true },
