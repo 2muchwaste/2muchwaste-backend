@@ -10,6 +10,8 @@ export interface DumpsterModel {
   area: string;
   maxWeight: number;
   actualWeight: number;
+  limitUsablePercentage: number;
+  openingSecondsDuration: number;
   available: boolean;
 }
 
@@ -22,6 +24,8 @@ module.exports = function () {
     area: { type: String, required: true },
     maxWeight: { type: Number, required: true },
     actualWeight: { type: Number, required: true },
+    limitUsablePercentage: { type: Number, required: true },
+    openingSecondsDuration: { type: Number, required: true },
     available: { type: Boolean, required: true },
   });
   return mongoose.model('Dumpster', DumpsterSchema);
