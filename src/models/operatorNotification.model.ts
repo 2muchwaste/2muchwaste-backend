@@ -12,8 +12,18 @@ export interface OperatorNotificationModel {
 
 module.exports = function () {
   const OperatorNotificationSchema = new Schema<OperatorNotificationModel>({
-    type: { type: String, required: true },
-    status: { type: String, required: true },
+    type: {
+      type: String,
+      required: true,
+      default: ErrorTypes.ERROR,
+      enum: Object.values(ErrorTypes),
+    },
+    status: {
+      type: String,
+      required: true,
+      default: NotificationStatus.PENDING,
+      enum: Object.values(NotificationStatus),
+    },
     dumpsterID: { type: Schema.Types.ObjectId, required: true },
     managedByOperator: { type: Schema.Types.ObjectId, required: true },
   });
