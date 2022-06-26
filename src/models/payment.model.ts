@@ -16,7 +16,12 @@ module.exports = function () {
     invoiceIssueDate: { type: Date, required: true },
     paymentDate: { type: Date, required: false },
     value: { type: Number, required: true },
-    status: { type: String, required: true },
+    status: {
+      type: String,
+      required: true,
+      default: PaymentStatus.PENDING,
+      enum: Object.values(PaymentStatus),
+    },
   });
   return mongoose.model('OperatorNotification', OperatorNotificationSchema);
 };
