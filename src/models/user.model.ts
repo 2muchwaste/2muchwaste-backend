@@ -9,7 +9,7 @@ interface NotificationModel {
   depositID: Schema.Types.ObjectId;
 }
 
-export interface IUser {
+export interface UserModel {
   email: string;
   passwordHash: number;
   passwordSalt: number;
@@ -27,7 +27,7 @@ module.exports = function () {
     read: { type: Boolean, required: true },
     depositID: { type: Schema.Types.ObjectId, required: true },
   });
-  const UserSchema = new Schema<IUser>({
+  const UserSchema = new Schema<UserModel>({
     email: { type: String, required: true, unique: true, lowercase: true },
     passwordHash: { type: Number, required: true },
     passwordSalt: { type: Number, required: true },
