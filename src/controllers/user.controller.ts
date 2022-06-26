@@ -20,3 +20,18 @@ exports.getUserByID = function (req: Request, res: Response) {
     }
   });
 };
+
+exports.updateUser = function (req: Request, res: Response) {
+  User.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true },
+    function (err: String, user: UserModel) {
+      if (err) res.send(err);
+      else {
+        if (user == null) res.status(404).send('User not found');
+        else res.json(user);
+      }
+    }
+  );
+};
