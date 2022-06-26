@@ -15,8 +15,8 @@ module.exports = function () {
     type: {
       type: String,
       required: true,
-      default: ErrorTypes.ERROR,
-      enum: Object.values(ErrorTypes),
+      default: DumpsterErrorTypes.ERROR,
+      enum: Object.values(DumpsterErrorTypes),
     },
     status: {
       type: String,
