@@ -17,7 +17,12 @@ export interface DumpsterModel {
 
 module.exports = function () {
   const DumpsterSchema = new Schema<DumpsterModel>({
-    type: { type: String, required: true },
+    type: {
+      type: String,
+      required: true,
+      default: TrashTypes.MIXED,
+      enum: Object.values(TrashTypes),
+    },
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
     address: { type: String, required: true },
