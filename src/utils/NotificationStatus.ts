@@ -1,5 +1,5 @@
 enum NotificationStatus {
-  PENDING,
-  IN_PROGRESS,
-  COMPLETE,
+  PENDING = 'pending',
+  IN_PROGRESS = 'in_progress',
+  COMPLETE = 'complete',
 }
