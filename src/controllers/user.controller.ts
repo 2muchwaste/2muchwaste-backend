@@ -35,3 +35,16 @@ exports.updateUser = function (req: Request, res: Response) {
     }
   );
 };
+
+exports.deleteUser = function (req: Request, res: Response) {
+  User.deleteOne(
+    { _id: req.params.id },
+    function (err: String, result: { deletedCount: number }) {
+      if (err) res.send(err);
+      else {
+        if (result.deletedCount == 0) res.status(404).send('User not found');
+        else res.json('User successfully deleted');
+      }
+    }
+  );
+};
