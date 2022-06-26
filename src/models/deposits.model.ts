@@ -20,7 +20,12 @@ module.exports = function () {
     date: { type: Date, required: true },
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
-    type: { type: String, required: true },
+    type: {
+      type: String,
+      required: true,
+      default: TrashTypes.MIXED,
+      enum: Object.values(TrashTypes),
+    },
     dumpsterID: { type: Schema.Types.ObjectId, required: true },
     userID: { type: Schema.Types.ObjectId, required: true },
   });
