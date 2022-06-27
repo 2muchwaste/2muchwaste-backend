@@ -7,6 +7,7 @@ interface DepositModel {
   quantity: number;
   type: string;
   price: number;
+  openingTimeSeconds: number;
   dumpsterID: Schema.Types.ObjectId;
   userID: Schema.Types.ObjectId;
 }
@@ -26,6 +27,7 @@ module.exports = function () {
       default: TrashTypes.MIXED,
       enum: Object.values(TrashTypes),
     },
+    openingTimeSeconds: { type: Number, required: true },
     dumpsterID: { type: Schema.Types.ObjectId, required: true },
     userID: { type: Schema.Types.ObjectId, required: true },
   });
