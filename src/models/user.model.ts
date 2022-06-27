@@ -17,6 +17,7 @@ export interface UserModel {
   surname: string;
   cf: string;
   address: string;
+  zipCode: string;
   notifications: NotificationModel[];
 }
 
@@ -35,6 +36,7 @@ module.exports = function () {
     surname: { type: String, required: true },
     cf: { type: String, required: true, unique: true, lowercase: true },
     address: { type: String, required: true },
+    zipCode: { type: String, required: true },
     notifications: { type: [NotificationSchema], required: false },
   });
   return mongoose.model('User', UserSchema);
