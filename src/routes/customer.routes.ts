@@ -4,6 +4,14 @@ const router: Router = express.Router();
 
 const customerController = new CustomerController();
 
-router.route('/:id').get(customerController.getCustomerByID);
+router
+  .route('/')
+  .get(customerController.getCustomers)
+  .post(customerController.createCustomer);
+router
+  .route('/:id')
+  .get(customerController.getCustomerByID)
+  .put(customerController.updateCustomer)
+  .delete(customerController.deleteCustomer);
 
 export default router;
