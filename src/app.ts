@@ -4,13 +4,13 @@ import cors from 'cors';
 import customerRouter from './routes/customer.routes';
 
 const app: Application = express();
+dotenv.config();
 app.use(
   cors({
     origin: process.env.ORIGIN,
   })
 );
 app.use(express.json);
-dotenv.config();
 app.use(express.static('public', { maxAge: 86400000 }));
 
 app.use('/api/v1/customers', customerRouter);
