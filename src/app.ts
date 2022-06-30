@@ -10,7 +10,7 @@ app.use(
     origin: process.env.ORIGIN,
   })
 );
-app.use(express.json);
+// app.use(express.json);
 app.use(express.static('public', { maxAge: 86400000 }));
 
 app.use('/api/v1/customers', customerRouter);
