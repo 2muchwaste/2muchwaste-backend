@@ -36,6 +36,14 @@ exports.updateUser = function (req: Request, res: Response) {
   );
 };
 
+exports.createUser = function (req: Request, res: Response) {
+  const new_user = new User(req.body);
+  new_user.save(function (err: String, user: UserModel) {
+    if (err) res.send(err);
+    res.status(201).json(user);
+  });
+};
+
 exports.deleteUser = function (req: Request, res: Response) {
   User.deleteOne(
     { _id: req.params.id },
