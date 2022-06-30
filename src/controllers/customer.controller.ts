@@ -41,10 +41,10 @@ export default class CustomerController {
   };
 
   createCustomer = (req: Request, res: Response) => {
-    const new_user = new Customer(req.body);
-    new_user.save(function (err: String, user: CustomerModel) {
+    const new_customer = new Customer(req.body);
+    new_customer.save((err: String, customer: CustomerModel) => {
       if (err) res.send(err);
-      res.status(201).json(user);
+      res.status(201).json(customer);
     });
   };
 
