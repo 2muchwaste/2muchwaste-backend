@@ -27,6 +27,7 @@ module.exports = function () {
     passwordSalt: { type: Number, required: true },
     name: { type: String, required: true },
     surname: { type: String, required: true },
+    birthday: { type: Date, required: true },
     cf: { type: String, required: true, unique: true, lowercase: true },
     address: { type: String, required: true },
     zipCode: { type: Number, required: true },
