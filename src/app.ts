@@ -10,7 +10,7 @@ app.use(
   })
 );
 app.use(express.json);
-dotenv.config({ path: `$(__dirname}/../config.env` });
+dotenv.config({ path: `$(__dirname}/../.env` });
 
 app.use(express.static('public', { maxAge: 86400000 }));
 
