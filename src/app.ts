@@ -10,8 +10,7 @@ app.use(
   })
 );
 app.use(express.json);
-dotenv.config({ path: `$(__dirname}/../.env` });
-
+dotenv.config();
 app.use(express.static('public', { maxAge: 86400000 }));
 
 app.use('/api/v1/customers', customerRouter);
