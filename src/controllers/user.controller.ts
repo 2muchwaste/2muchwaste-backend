@@ -1,35 +1,35 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../models/user.model';
+import { CustomerModel } from '../models/customer.model';
 
 const mongoose = require('mongoose');
-const User = require('../models/user.model.ts')(mongoose);
+const Customer = require('../models/customer.model.ts')(mongoose);
 
 exports.getUsers = function (req: Request, res: Response) {
-  User.find({}, function (err: String, user: UserModel) {
+  Customer.find({}, function (err: String, user: CustomerModel) {
     if (err) res.send(err);
     res.json(user);
   });
 };
 
 exports.getUserByID = function (req: Request, res: Response) {
-  User.findById(req.params.id, function (err: String, user: UserModel) {
+  Customer.findById(req.params.id, function (err: String, user: CustomerModel) {
     if (err) res.send(err);
     else {
-      if (user == null) res.status(404).send('User not found');
+      if (user == null) res.status(404).send('Customer not found');
       else res.json(user);
     }
   });
 };
 
 exports.updateUser = function (req: Request, res: Response) {
-  User.findOneAndUpdate(
+  Customer.findOneAndUpdate(
     { _id: req.params.id },
     req.body,
     { new: true },
-    function (err: String, user: UserModel) {
+    function (err: String, user: CustomerModel) {
       if (err) res.send(err);
       else {
-        if (user == null) res.status(404).send('User not found');
+        if (user == null) res.status(404).send('Customer not found');
         else res.json(user);
       }
     }
@@ -37,21 +37,22 @@ exports.updateUser = function (req: Request, res: Response) {
 };
 
 exports.createUser = function (req: Request, res: Response) {
-  const new_user = new User(req.body);
-  new_user.save(function (err: String, user: UserModel) {
+  const new_user = new Customer(req.body);
+  new_user.save(function (err: String, user: CustomerModel) {
     if (err) res.send(err);
     res.status(201).json(user);
   });
 };
 
 exports.deleteUser = function (req: Request, res: Response) {
-  User.deleteOne(
+  Customer.deleteOne(
     { _id: req.params.id },
     function (err: String, result: { deletedCount: number }) {
       if (err) res.send(err);
       else {
-        if (result.deletedCount == 0) res.status(404).send('User not found');
-        else res.json('User successfully deleted');
+        if (result.deletedCount == 0)
+          res.status(404).send('Customer not found');
+        else res.json('Customer successfully deleted');
       }
     }
   );

@@ -9,7 +9,7 @@ interface NotificationModel {
   depositID: Schema.Types.ObjectId;
 }
 
-export interface UserModel {
+export interface CustomerModel {
   email: string;
   passwordHash: number;
   passwordSalt: number;
@@ -28,7 +28,7 @@ module.exports = function () {
     read: { type: Boolean, required: true },
     depositID: { type: Schema.Types.ObjectId, required: true },
   });
-  const UserSchema = new Schema<UserModel>({
+  const customerSchema = new Schema<CustomerModel>({
     email: { type: String, required: true, unique: true, lowercase: true },
     passwordHash: { type: Number, required: true },
     passwordSalt: { type: Number, required: true },
@@ -39,5 +39,5 @@ module.exports = function () {
     zipCode: { type: String, required: true },
     notifications: { type: [NotificationSchema], required: false },
   });
-  return mongoose.model('User', UserSchema);
+  return mongoose.model('Customer', customerSchema);
 };
