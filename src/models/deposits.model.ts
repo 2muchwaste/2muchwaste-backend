@@ -16,7 +16,7 @@ interface DepositsModel {
   deposits: DepositModel[];
 }
 
-module.exports = function () {
+module.exports = () => {
   const DepositSchema = new Schema<DepositModel>({
     date: { type: Date, required: true },
     quantity: { type: Number, required: true },

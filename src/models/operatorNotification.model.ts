@@ -10,7 +10,7 @@ export interface OperatorNotificationModel {
   status: string;
 }
 
-module.exports = function () {
+module.exports = () => {
   const OperatorNotificationSchema = new Schema<OperatorNotificationModel>({
     type: {
       type: String,

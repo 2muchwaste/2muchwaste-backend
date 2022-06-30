@@ -13,7 +13,7 @@ export interface OperatorModel extends UserModel {
   empties: IEmpty[];
 }
 
-module.exports = function () {
+module.exports = () => {
   const EmptySchema = new Schema<IEmpty>({
     date: { type: Date, required: true },
     dumpsterID: { type: Schema.Types.ObjectId, required: true },

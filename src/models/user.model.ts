@@ -14,7 +14,7 @@ export interface UserModel {
   passwordSalt: string;
 }
 
-module.exports = function () {
+module.exports = () => {
   const UserSchema = new Schema<UserModel>({
     name: { type: String, required: true },
     surname: { type: String, required: true },

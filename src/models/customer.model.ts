@@ -14,7 +14,7 @@ export interface CustomerModel extends UserModel {
   notifications: NotificationModel[];
 }
 
-module.exports = function () {
+module.exports = () => {
   const NotificationSchema = new Schema<NotificationModel>({
     date: { type: Date, required: true },
     text: { type: String, required: true },

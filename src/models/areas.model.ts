@@ -16,7 +16,7 @@ interface AreasModel {
   areas: DistrictsModel[];
 }
 
-module.exports = function () {
+module.exports = () => {
   const DistrictSchema = new Schema<DistrictModel>({
     name: { type: String, required: true },
     addresses: { type: [String], required: true },

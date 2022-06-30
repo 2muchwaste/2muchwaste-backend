@@ -10,7 +10,7 @@ export interface PaymentModel {
   status: string;
 }
 
-module.exports = function () {
+module.exports = () => {
   const OperatorNotificationSchema = new Schema<PaymentModel>({
     userID: { type: Schema.Types.ObjectId, required: true },
     invoiceIssueDate: { type: Date, required: true },

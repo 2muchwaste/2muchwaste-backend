@@ -15,7 +15,7 @@ export interface DumpsterModel {
   available: boolean;
 }
 
-module.exports = function () {
+module.exports = () => {
   const DumpsterSchema = new Schema<DumpsterModel>({
     type: {
       type: String,

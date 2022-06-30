@@ -7,7 +7,7 @@ export interface CostModel {
   pricePerKilogram: number;
 }
 
-module.exports = function () {
+module.exports = () => {
   const CostSchema = new Schema<CostModel>({
     type: {
       type: String,
