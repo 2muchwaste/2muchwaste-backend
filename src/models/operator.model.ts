@@ -27,8 +27,8 @@ module.exports = function () {
     address: { type: String, required: true },
     zipCode: { type: Number, required: true },
     city: { type: String, required: true },
-    passwordHash: { type: Number, required: true },
-    passwordSalt: { type: Number, required: true },
+    passwordHash: { type: String, required: true },
+    passwordSalt: { type: String, required: true },
     districts: { type: [Schema.Types.ObjectId], required: false },
     empties: { type: [EmptySchema], required: false },
   });

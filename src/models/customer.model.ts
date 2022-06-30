@@ -23,8 +23,8 @@ module.exports = function () {
   });
   const customerSchema = new Schema<CustomerModel>({
     email: { type: String, required: true, unique: true, lowercase: true },
-    passwordHash: { type: Number, required: true },
-    passwordSalt: { type: Number, required: true },
+    passwordHash: { type: String, required: true },
+    passwordSalt: { type: String, required: true },
     name: { type: String, required: true },
     surname: { type: String, required: true },
     birthday: { type: Date, required: true },
