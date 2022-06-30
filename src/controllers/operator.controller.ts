@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { OperatorModel } from '../models/operator.model';
+import { CustomerModel } from '../models/customer.model';
 
 const mongoose = require('mongoose');
 const Operator = require('../models/operator.model')(mongoose);
@@ -17,11 +18,19 @@ exports.getOperatorByID = function (req: Request, res: Response) {
     function (err: String, operator: OperatorModel) {
       if (err) res.send(err);
       else {
-        if (operator == null) res.status(404).send('User not found');
+        if (operator == null) res.status(404).send('Operator not found');
         else res.json(operator);
       }
     }
   );
+};
+
+exports.createOperator = function (req: Request, res: Response) {
+  const new_user = new Operator(req.body);
+  new_user.save(function (err: String, user: CustomerModel) {
+    if (err) res.send(err);
+    res.status(201).json(user);
+  });
 };
 
 exports.updateOperator = function (req: Request, res: Response) {
@@ -32,7 +41,7 @@ exports.updateOperator = function (req: Request, res: Response) {
     function (err: String, operator: OperatorModel) {
       if (err) res.send(err);
       else {
-        if (operator == null) res.status(404).send('User not found');
+        if (operator == null) res.status(404).send('Operator not found');
         else res.json(operator);
       }
     }
@@ -45,8 +54,9 @@ exports.deleteOperator = function (req: Request, res: Response) {
     function (err: String, result: { deletedCount: number }) {
       if (err) res.send(err);
       else {
-        if (result.deletedCount == 0) res.status(404).send('User not found');
-        else res.json('User successfully deleted');
+        if (result.deletedCount == 0)
+          res.status(404).send('Operator not found');
+        else res.json('Operator successfully deleted');
       }
     }
   );
