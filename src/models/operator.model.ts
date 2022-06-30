@@ -29,7 +29,7 @@ module.exports = function () {
     city: { type: String, required: true },
     passwordHash: { type: Number, required: true },
     passwordSalt: { type: Number, required: true },
-    districts: { type: [Schema.Types.ObjectId], required: true },
+    districts: { type: [Schema.Types.ObjectId], required: false },
     empties: { type: [EmptySchema], required: false },
   });
   return mongoose.model('Operator', OperatorSchema);
