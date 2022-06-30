@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { UserModel } from './user.model';
 
 const mongoose = require('mongoose');
 
@@ -9,15 +10,7 @@ interface NotificationModel {
   depositID: Schema.Types.ObjectId;
 }
 
-export interface CustomerModel {
-  email: string;
-  passwordHash: number;
-  passwordSalt: number;
-  name: string;
-  surname: string;
-  cf: string;
-  address: string;
-  zipCode: string;
+export interface CustomerModel extends UserModel {
   notifications: NotificationModel[];
 }
 
@@ -36,7 +29,8 @@ module.exports = function () {
     surname: { type: String, required: true },
     cf: { type: String, required: true, unique: true, lowercase: true },
     address: { type: String, required: true },
-    zipCode: { type: String, required: true },
+    zipCode: { type: Number, required: true },
+    city: { type: String, required: true },
     notifications: { type: [NotificationSchema], required: false },
   });
   return mongoose.model('Customer', customerSchema);
