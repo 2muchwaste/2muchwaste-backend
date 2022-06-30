@@ -10,8 +10,8 @@ export interface UserModel {
   address: string;
   zipCode: number;
   city: string;
-  passwordHash: number;
-  passwordSalt: number;
+  passwordHash: string;
+  passwordSalt: string;
 }
 
 module.exports = function () {
@@ -24,8 +24,8 @@ module.exports = function () {
     address: { type: String, required: true },
     zipCode: { type: Number, required: true },
     city: { type: String, required: true },
-    passwordHash: { type: Number, required: true },
-    passwordSalt: { type: Number, required: true },
+    passwordHash: { type: String, required: true },
+    passwordSalt: { type: String, required: true },
   });
   return mongoose.model('User', UserSchema);
 };
