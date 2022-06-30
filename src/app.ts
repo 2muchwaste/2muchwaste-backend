@@ -1,17 +1,25 @@
-import express, { Express, Request, Response } from 'express';
-import UserRoutes from './routes/user.routes';
+import express, { Application, Request, Response } from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import customerRouter from './routes/customer.routes';
 
-const app: Express = express();
-const port = 3456;
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
-});
+const app: Application = express();
+app.use(
+  cors({
+    origin: process.env.ORIGIN,
+  })
+);
+app.use(express.json);
+dotenv.config({ path: `$(__dirname}/../config.env` });
 
 app.use(express.static('public', { maxAge: 86400000 }));
 
-app.use('/api/v1/users', UserRoutes);
-
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+app.use('/api/v1/customers', customerRouter);
+app.get('/', (req: Request, res: Response) => {
+  res.send('Express + TypeScript Server');
 });
+app.all('*', (req, res, next) => {
+  next(res.status(404).send(`Can't find ${req.originalUrl} on this server`));
+});
+
+export default app;
