@@ -4,14 +4,14 @@ import { CustomerModel } from '../models/customer.model';
 const mongoose = require('mongoose');
 const Customer = require('../models/customer.model.ts')(mongoose);
 
-exports.getUsers = function (req: Request, res: Response) {
+exports.getCustomers = function (req: Request, res: Response) {
   Customer.find({}, function (err: String, user: CustomerModel) {
     if (err) res.send(err);
     res.json(user);
   });
 };
 
-exports.getUserByID = function (req: Request, res: Response) {
+exports.getCustomerByID = function (req: Request, res: Response) {
   Customer.findById(req.params.id, function (err: String, user: CustomerModel) {
     if (err) res.send(err);
     else {
@@ -21,7 +21,7 @@ exports.getUserByID = function (req: Request, res: Response) {
   });
 };
 
-exports.updateUser = function (req: Request, res: Response) {
+exports.updateCustomer = function (req: Request, res: Response) {
   Customer.findOneAndUpdate(
     { _id: req.params.id },
     req.body,
@@ -36,7 +36,7 @@ exports.updateUser = function (req: Request, res: Response) {
   );
 };
 
-exports.createUser = function (req: Request, res: Response) {
+exports.createCustomer = function (req: Request, res: Response) {
   const new_user = new Customer(req.body);
   new_user.save(function (err: String, user: CustomerModel) {
     if (err) res.send(err);
@@ -44,7 +44,7 @@ exports.createUser = function (req: Request, res: Response) {
   });
 };
 
-exports.deleteUser = function (req: Request, res: Response) {
+exports.deleteCustomer = function (req: Request, res: Response) {
   Customer.deleteOne(
     { _id: req.params.id },
     function (err: String, result: { deletedCount: number }) {
