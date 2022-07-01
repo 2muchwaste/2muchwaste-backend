@@ -12,7 +12,7 @@ export interface PaymentModel {
 
 module.exports = () => {
   const OperatorNotificationSchema = new Schema<PaymentModel>({
-    userID: { type: Schema.Types.ObjectId, required: true },
+    userID: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
     invoiceIssueDate: { type: Date, required: true },
     paymentDate: { type: Date, required: false },
     value: { type: Number, required: true },

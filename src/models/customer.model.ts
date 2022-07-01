@@ -19,7 +19,7 @@ module.exports = () => {
     date: { type: Date, required: true },
     text: { type: String, required: true },
     read: { type: Boolean, required: true },
-    depositID: { type: Schema.Types.ObjectId, required: true },
+    depositID: { type: Schema.Types.ObjectId, required: true, ref: 'Deposits' },
   });
   const customerSchema = new Schema<CustomerModel>({
     email: { type: String, required: true, unique: true, lowercase: true },

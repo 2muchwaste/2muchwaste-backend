@@ -28,8 +28,12 @@ module.exports = () => {
       enum: Object.values(TrashTypes),
     },
     openingTimeSeconds: { type: Number, required: true },
-    dumpsterID: { type: Schema.Types.ObjectId, required: true },
-    userID: { type: Schema.Types.ObjectId, required: true },
+    dumpsterID: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Dumpster',
+    },
+    userID: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   });
   const DepositsSchema = new Schema<DepositsModel>({
     deposits: { type: [DepositSchema], required: true },

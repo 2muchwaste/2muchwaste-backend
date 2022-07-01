@@ -16,7 +16,11 @@ export interface OperatorModel extends UserModel {
 module.exports = () => {
   const EmptySchema = new Schema<IEmpty>({
     date: { type: Date, required: true },
-    dumpsterID: { type: Schema.Types.ObjectId, required: true },
+    dumpsterID: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Dumpster',
+    },
   });
   const OperatorSchema = new Schema<OperatorModel>({
     name: { type: String, required: true },

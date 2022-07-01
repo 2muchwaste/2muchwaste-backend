@@ -24,8 +24,16 @@ module.exports = () => {
       default: NotificationStatus.PENDING,
       enum: Object.values(NotificationStatus),
     },
-    dumpsterID: { type: Schema.Types.ObjectId, required: true },
-    managedByOperator: { type: Schema.Types.ObjectId, required: true },
+    dumpsterID: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Dumpster',
+    },
+    managedByOperator: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Operator',
+    },
   });
   return mongoose.model('OperatorNotification', OperatorNotificationSchema);
 };
