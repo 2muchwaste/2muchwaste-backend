@@ -47,7 +47,7 @@ class ControllerFactory<T> {
       (err: String, result: { deletedCount: number }) => {
         if (err) res.send(err);
         else {
-          if (result.deletedCount == 0)
+          if (result.deletedCount === 0)
             res.status(404).send('Customer not found');
           else res.json('Doc successfully deleted');
         }
