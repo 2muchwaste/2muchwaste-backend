@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import helmet from 'helmet';
 import customerRoutes from './routes/customer.routes';
 import operatorRoutes from './routes/operator.routes';
 import dumpsterRoutes from './routes/dumpster.routes';
@@ -13,6 +14,7 @@ app.use(
     origin: process.env.ORIGIN,
   })
 );
+app.use(helmet());
 app.use(express.static('public', { maxAge: 86400000 }));
 
 app.use('/api/v1/customers', customerRoutes);
