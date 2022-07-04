@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { TrashTypes } from '../enums/TrashTypes';
 
 const mongoose = require('mongoose');
 

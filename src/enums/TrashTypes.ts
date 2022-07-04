@@ -1,4 +1,4 @@
-enum TrashTypes {
+export enum TrashTypes {
   PAPER = 'paper',
   PLASTIC = 'plastic',
   METAL = 'metal',

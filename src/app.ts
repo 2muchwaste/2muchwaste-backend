@@ -1,8 +1,9 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import customerRouter from './routes/customer.routes';
-import operatorRouter from './routes/operator.routes';
+import customerRoutes from './routes/customer.routes';
+import operatorRoutes from './routes/operator.routes';
+import dumpsterRoutes from './routes/dumpster.routes';
 
 const app: Application = express();
 dotenv.config();
@@ -14,8 +15,9 @@ app.use(
 );
 app.use(express.static('public', { maxAge: 86400000 }));
 
-app.use('/api/v1/customers', customerRouter);
-app.use('/api/v1/operators', operatorRouter);
+app.use('/api/v1/customers', customerRoutes);
+app.use('/api/v1/operators', operatorRoutes);
+app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
 });
