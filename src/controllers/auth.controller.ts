@@ -1,7 +1,7 @@
-import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
+import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
 
-export const SECRET_KEY: Secret = '2muchwaste_secretkey!!';
+export const SECRET_KEY: Secret = process.env.JWT_SECRET || 'secret-error';
 
 export interface CustomRequest extends Request {
   token: string | JwtPayload;
@@ -15,8 +15,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
       throw new Error();
     }
 
-    const decoded = jwt.verify(token, SECRET_KEY);
-    (req as CustomRequest).token = decoded;
+    (req as CustomRequest).token = jwt.verify(token, SECRET_KEY);
 
     next();
   } catch (err) {
