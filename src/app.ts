@@ -19,7 +19,7 @@ app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/operators', operatorRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+  res.send('Welcome to 2muchwaste backend!');
 });
 app.all('*', (req, res, next) => {
   next(res.status(404).send(`Can't find ${req.originalUrl} on this server`));
