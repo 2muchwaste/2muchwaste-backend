@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import { userDefinitions, UserModel } from './user.model';
+import bcrypt from 'bcrypt';
 
 const mongoose = require('mongoose');
 
@@ -24,6 +25,15 @@ module.exports = () => {
   const customerSchema = new Schema<CustomerModel>({
     ...userDefinitions,
     notifications: { type: [NotificationSchema], required: false },
+  });
+  const saltRounds = 8;
+  customerSchema.pre('save', async next => {
+    // @ts-ignore
+    if (this.isModified('passwordHash')) {
+      // @ts-ignore
+      this.passwordHash = await bcrypt.hash(this.passwordHash, saltRounds);
+    }
+    next();
   });
   return mongoose.model('Customer', customerSchema);
 };

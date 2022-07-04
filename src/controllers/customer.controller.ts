@@ -1,18 +1,24 @@
 import { CustomerModel } from '../models/customer.model';
-import ControllerFactory from '../utils/controller.factory';
+import BasicService from '../services/basic.service';
+import UserAuthService from '../services/userAuth.service';
 
 const mongoose = require('mongoose');
 const Customer = require('../models/customer.model')(mongoose);
-const controller = new ControllerFactory<CustomerModel>('Customer');
+const basicService = new BasicService<CustomerModel>('Customer');
+const userService = new UserAuthService<CustomerModel>('Customer');
 
 export default class CustomerController {
-  getCustomers = controller.getAll(Customer);
+  getCustomers = basicService.getAll(Customer);
 
-  getCustomerByID = controller.getByID(Customer);
+  getCustomerByID = basicService.getByID(Customer);
 
-  updateCustomer = controller.updateByID(Customer);
+  updateCustomer = basicService.updateByID(Customer);
 
-  createCustomer = controller.createOne(Customer);
+  createCustomer = basicService.createOne(Customer);
 
-  deleteCustomer = controller.deleteByID(Customer);
+  deleteCustomer = basicService.deleteByID(Customer);
+
+  signup = userService.signUp(Customer);
+
+  login = userService.login(Customer);
 }
