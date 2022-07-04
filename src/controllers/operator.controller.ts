@@ -1,9 +1,9 @@
 import { OperatorModel } from '../models/operator.model';
-import ControllerFactory from "../utils/controller.factory";
+import BasicService from '../services/basic.service';
 
 const mongoose = require('mongoose');
 const Operator = require('../models/operator.model')(mongoose);
-const controller = new ControllerFactory<OperatorModel>('Operator');
+const controller = new BasicService<OperatorModel>('Operator');
 
 export default class OperatorController {
   getOperators = controller.getAll(Operator);
