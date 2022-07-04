@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 
-class ControllerFactory<T> {
+class BasicService<T> {
   docName: string;
 
   constructor(docName: string) {
@@ -63,4 +63,4 @@ class ControllerFactory<T> {
   };
 }
 
-export default ControllerFactory;
+export default BasicService;
