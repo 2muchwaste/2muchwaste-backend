@@ -8,7 +8,7 @@ class BasicService<T> {
     this.docName = docName;
   }
 
-  getByID = (model: Model<T>) => (req: Request, res: Response) => {
+  getByID = (model: Model<T>) => async (req: Request, res: Response) => {
     model.findById(req.params.id, function (err: String, doc: Model<T>) {
       if (err) res.send(err);
       else {
@@ -18,7 +18,7 @@ class BasicService<T> {
     });
   };
 
-  updateByID = (model: Model<T>) => (req: Request, _res: Response) => {
+  updateByID = (model: Model<T>) => async (req: Request, _res: Response) => {
     model.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -33,15 +33,15 @@ class BasicService<T> {
     );
   };
 
-  createOne = (model: Model<T>) => (req: Request, res: Response) => {
-    const new_doc = new model(req.body);
-    new_doc.save((err: String, doc: Model<T>) => {
+  createOne = (model: Model<T>) => async (req: Request, res: Response) => {
+    const newDoc = new model(req.body);
+    newDoc.save((err: String, doc: Model<T>) => {
       if (err) res.send(err);
       res.status(201).json(doc);
     });
   };
 
-  deleteByID = (model: Model<T>) => (req: Request, res: Response) => {
+  deleteByID = (model: Model<T>) => async (req: Request, res: Response) => {
     model.findByIdAndDelete(
       req.params.id,
       (err: String, result: { deletedCount: number }) => {
@@ -55,7 +55,7 @@ class BasicService<T> {
     );
   };
 
-  getAll = (model: Model<T>) => (req: Request, res: Response) => {
+  getAll = (model: Model<T>) => async (req: Request, res: Response) => {
     model.find({}, (err: String, doc: Model<T>) => {
       if (err) res.send(err);
       res.json(doc);
