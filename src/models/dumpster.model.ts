@@ -8,6 +8,8 @@ export interface DumpsterModel {
   latitude: number;
   longitude: number;
   address: string;
+  city: string;
+  zipCode: number;
   area: string;
   maxWeight: number;
   actualWeight: number;
@@ -27,6 +29,8 @@ module.exports = () => {
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
     address: { type: String, required: true },
+    city: { type: String, required: true },
+    zipCode: { type: Number, required: true },
     area: { type: String, required: true },
     maxWeight: { type: Number, required: true },
     actualWeight: { type: Number, required: true },
