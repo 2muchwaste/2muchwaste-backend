@@ -1,18 +1,14 @@
-import { OperatorModel } from '../models/operator.model';
-import BasicService from '../services/basic.service';
+import OperatorModel, { IOperator } from '../models/operator.model';
+import UserService from '../services/user.service';
+import { Roles } from '../enums/Roles';
 
 const mongoose = require('mongoose');
-const Operator = require('../models/operator.model')(mongoose);
-const controller = new BasicService<OperatorModel>('Operator');
+const service = new UserService<IOperator>(Roles.OPERATOR.toString());
 
 export default class OperatorController {
-  getOperators = controller.getAll(Operator);
-
-  getOperatorByID = controller.getByID(Operator);
-
-  createOperator = controller.createOne(Operator);
-
-  updateOperator = controller.updateByID(Operator);
-
-  deleteOperator = controller.deleteByID(Operator);
+  getOperators = service.getAll(OperatorModel);
+  getOperatorByID = service.getByID(OperatorModel);
+  createOperator = service.createOne(OperatorModel);
+  updateOperator = service.updateByID(OperatorModel);
+  deleteOperator = service.deleteByID(OperatorModel);
 }

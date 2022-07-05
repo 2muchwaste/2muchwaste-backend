@@ -2,15 +2,15 @@ import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserModel } from '../models/user.model';
-import { CustomerModel } from '../models/customer.model';
+import { IUser } from '../models/user.model';
+import { ICustomer } from '../models/customer.model';
 import { SECRET_KEY } from '../controllers/auth.controller';
 
-class UserAuthService<T extends UserModel> {
-  docName: string;
+class UserAuthService<T extends IUser> {
+  discriminator: string;
 
-  constructor(docName: string) {
-    this.docName = docName;
+  constructor(discriminator: string) {
+    this.discriminator = discriminator;
   }
 
   signUp = (model: Model<T>) => (req: Request, res: Response) => {

@@ -32,7 +32,7 @@ module.exports = () => {
     managedByOperator: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'Operator',
+      ref: 'User',
     },
   });
   return mongoose.model('OperatorNotification', OperatorNotificationSchema);

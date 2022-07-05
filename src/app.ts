@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
+import userRoutes from './routes/user.routes';
 import customerRoutes from './routes/customer.routes';
 import operatorRoutes from './routes/operator.routes';
 import dumpsterRoutes from './routes/dumpster.routes';
@@ -17,6 +18,7 @@ app.use(
 app.use(helmet());
 app.use(express.static('public', { maxAge: 86400000 }));
 
+app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/operators', operatorRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
