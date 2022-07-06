@@ -2,17 +2,17 @@ import { Schema } from 'mongoose';
 
 const mongoose = require('mongoose');
 
-interface IDistrict {
+export interface IDistrict {
   name: string;
   addresses: string[];
 }
 
-interface IDistricts {
+export interface IDistricts {
   zipCode: number;
   districts: IDistrict[];
 }
 
-interface IAreas {
+export interface IAreas {
   areas: IDistricts[];
 }
 
