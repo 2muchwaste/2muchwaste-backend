@@ -13,7 +13,7 @@ interface IDeposit {
   userID: Schema.Types.ObjectId;
 }
 
-interface IDeposits {
+export interface IDeposits {
   deposits: IDeposit[];
 }
 
