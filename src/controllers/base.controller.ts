@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 
-class BasicService<T> {
+class BaseController<T> {
   discriminator: string;
 
   constructor(discriminator: string) {
@@ -64,4 +64,4 @@ class BasicService<T> {
   };
 }
 
-export default BasicService;
+export default BaseController;

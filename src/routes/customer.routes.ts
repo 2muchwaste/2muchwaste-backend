@@ -1,23 +1,24 @@
 import express, { Router } from 'express';
 import CustomerController from '../controllers/customer.controller';
-import { auth } from '../controllers/auth.controller';
+import CustomerModel from '../models/customer.model';
+import { Roles } from '../enums/Roles';
 const router: Router = express.Router();
 
-const customerController = new CustomerController();
+const customerController = new CustomerController(Roles.CUSTOMER.toString());
 
 router
   .route('/')
-  .get(customerController.getCustomers)
-  .post(customerController.createCustomer);
+  .get(customerController.getAll(CustomerModel))
+  .post(customerController.createOne(CustomerModel));
 router
   .route('/:id')
-  .get(customerController.getCustomerByID)
-  .put(customerController.updateCustomer)
-  .delete(customerController.deleteCustomer);
-//   .get(auth, customerController.getCustomerByID)
-//   .put(auth, customerController.updateCustomer)
-//   .delete(auth, customerController.deleteCustomer);
-// router.route('/signup').post(customerController.signup);
-// router.route('/login').post(customerController.login);
+  .get(customerController.getByID(CustomerModel))
+  .put(customerController.updateByID(CustomerModel))
+  .delete(customerController.deleteByID(CustomerModel));
+//   .get(auth, customerController.getByID(CustomerModel))
+//   .put(auth, customerController.updateByID(CustomerModel))
+//   .delete(auth, customerController.deleteByID(CustomerModel));
+router.route('/signup').post(customerController.signUp(CustomerModel));
+router.route('/login').post(customerController.login(CustomerModel));
 
 export default router;
