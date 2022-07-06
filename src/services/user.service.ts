@@ -1,67 +1,40 @@
 import { Model } from 'mongoose';
 import { Request, Response } from 'express';
+import BasicService from './basic.service';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { SECRET_KEY } from '../controllers/auth.controller';
+import { IUser } from '../models/user.model';
 
-class BasicService<T> {
-  discriminator: string;
-
-  constructor(discriminator: string) {
-    this.discriminator = discriminator;
-  }
-
-  getByID = (model: Model<T>) => async (req: Request, res: Response) => {
-    model.findById(req.params.id, function (err: String, doc: Model<T>) {
-      if (err) res.send(err);
-      else {
-        if (doc == null) res.status(404).send('Doc not found');
-        else res.json(doc);
-      }
-    });
-  };
-
-  updateByID = (model: Model<T>) => async (req: Request, _res: Response) => {
-    model.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true },
-      (err, doc, res) => {
-        if (err) res.send(err);
-        else {
-          if (doc == null) res.status(404).send('Doc not found');
-          else res.json(doc);
-        }
-      }
-    );
-  };
-
-  createOne = (model: Model<T>) => async (req: Request, res: Response) => {
-    const newDoc = new model(req.body);
-    newDoc.save((err: String, doc: Model<T>) => {
-      console.log(doc);
+class UserService<T extends IUser> extends BasicService<T> {
+  signUp = (model: Model<T>) => (req: Request, res: Response) => {
+    const user = new model(req.body);
+    user.save((err: String, doc: Model<T>) => {
       if (err) res.send(err);
       res.status(201).json(doc);
     });
   };
 
-  deleteByID = (model: Model<T>) => async (req: Request, res: Response) => {
-    model.findByIdAndDelete(
-      req.params.id,
-      (err: String, result: { deletedCount: number }) => {
-        if (err) res.send(err);
-        else {
-          if (result.deletedCount === 0)
-            res.status(404).send('Customer not found');
-          else res.json('Doc successfully deleted');
-        }
-      }
-    );
-  };
-
-  getAll = (model: Model<T>) => async (req: Request, res: Response) => {
-    model.find({}, (err: String, doc: Model<T>) => {
-      if (err) res.send(err);
-      res.json(doc);
-    });
+  login = (model: Model<T>) => async (req: Request, _res: Response) => {
+    try {
+      const user = new model(req.body);
+      const foundUser = await model.findOne({ email: user.email });
+      if (!foundUser) throw new Error('Email of user is not correct');
+      const isMatch = bcrypt.compareSync(user.password, foundUser.passwordHash);
+      if (isMatch) {
+        const token = jwt.sign(
+          { _id: foundUser._id?.toString(), email: foundUser.email },
+          SECRET_KEY,
+          {
+            expiresIn: '2 days',
+          }
+        );
+        return foundUser;
+      } else throw new Error('Password is not correct');
+    } catch (error) {
+      throw error;
+    }
   };
 }
 
-export default BasicService;
+export default UserService;
