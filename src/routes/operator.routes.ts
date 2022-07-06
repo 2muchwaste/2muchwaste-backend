@@ -1,17 +1,19 @@
 import express, { Router } from 'express';
 import OperatorController from '../controllers/operator.controller';
+import { Roles } from '../enums/Roles';
+import OperatorModel from '../models/operator.model';
 
 const router: Router = express.Router();
-const operatorController = new OperatorController();
+const operatorController = new OperatorController(Roles.OPERATOR.toString());
 
 router
   .route('/')
-  .get(operatorController.getOperators)
-  .post(operatorController.createOperator);
+  .get(operatorController.getAll(OperatorModel))
+  .post(operatorController.createOne(OperatorModel));
 router
   .route('/:id')
-  .get(operatorController.getOperatorByID)
-  .put(operatorController.updateOperator)
-  .delete(operatorController.deleteOperator);
+  .get(operatorController.getByID(OperatorModel))
+  .put(operatorController.updateByID(OperatorModel))
+  .delete(operatorController.deleteByID(OperatorModel));
 
 export default router;
