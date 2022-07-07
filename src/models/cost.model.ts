@@ -19,4 +19,4 @@ const CostSchema = new Schema<ICost>({
   pricePerKilogram: { type: Number, required: true },
 });
 
-export default mongoose.model('OperatorNotification', CostSchema);
+export default mongoose.model('Cost', CostSchema);
