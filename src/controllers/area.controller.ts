@@ -26,6 +26,22 @@ export default class AreaController extends BaseController<IArea> {
       );
     };
 
+  updateAreaByZipCode =
+    (model: Model<IArea>) => async (req: Request, _res: Response) => {
+      model.findOneAndUpdate(
+        { zipCode: req.params.zipCode },
+        req.body,
+        { new: true, runValidators: true },
+        (err, doc, res) => {
+          if (err) res.send(err);
+          else {
+            if (doc == null) res.status(404).send('Doc not found');
+            else res.json(doc);
+          }
+        }
+      );
+    };
+
   updateAreaByZipCodeAndName =
     (model: Model<IArea>) => async (req: Request, _res: Response) => {
       model.findOneAndUpdate(
@@ -37,6 +53,52 @@ export default class AreaController extends BaseController<IArea> {
           else {
             if (doc == null) res.status(404).send('Doc not found');
             else res.json(doc);
+          }
+        }
+      );
+    };
+
+  addStreetToArea =
+    (model: Model<IArea>) => async (req: Request, res: Response) => {
+      model.findOneAndUpdate(
+        { zipCode: req.params.zipCode, name: req.params.districtName },
+        { $addToSet: { streets: req.body.street.toString() } },
+        { new: true, runValidators: true },
+        (err, doc) => {
+          if (err) res.send(err);
+          else {
+            if (doc == null) res.status(404).send('Doc not found');
+            else res.json(doc);
+          }
+        }
+      );
+    };
+
+  deleteByZipCode =
+    (model: Model<IArea>) => async (req: Request, res: Response) => {
+      model.findOneAndDelete(
+        { zipCode: req.params.zipCode },
+        (err: String, result: { deletedCount: number }) => {
+          if (err) res.send(err);
+          else {
+            if (result.deletedCount === 0)
+              res.status(404).send('Customer not found');
+            else res.json('Doc successfully deleted');
+          }
+        }
+      );
+    };
+
+  deleteByZipCodeAndName =
+    (model: Model<IArea>) => async (req: Request, res: Response) => {
+      model.findOneAndDelete(
+        { zipCode: req.params.zipCode, name: req.params.districtName },
+        (err: String, result: { deletedCount: number }) => {
+          if (err) res.send(err);
+          else {
+            if (result.deletedCount === 0)
+              res.status(404).send('Customer not found');
+            else res.json('Doc successfully deleted');
           }
         }
       );

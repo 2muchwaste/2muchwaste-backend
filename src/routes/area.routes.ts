@@ -9,11 +9,20 @@ router
   .route('/')
   .get(controller.getAll(AreaModel))
   .post(controller.createOne(AreaModel));
-router.route('/:zipCode').get(controller.getAreasFromZipCode(AreaModel));
+router
+  .route('/:zipCode')
+  .get(controller.getAreasFromZipCode(AreaModel))
+  .put(controller.updateAreaByZipCode(AreaModel))
+  .delete(controller.deleteByZipCode(AreaModel));
 router
   .route('/:zipCode/:districtName')
   .get(controller.getAreaFromZipCodeAndName(AreaModel))
-  .put(controller.updateAreaByZipCodeAndName(AreaModel));
-// .delete(controller.deleteByID(AreaModel));
+  .post(controller.addStreetToArea(AreaModel))
+  .put(controller.updateAreaByZipCodeAndName(AreaModel))
+  .delete(controller.deleteByZipCodeAndName(AreaModel));
+router
+  .route('/:zipCode/:districtName/:street')
+  .get(controller.getAreaFromZipCodeAndName(AreaModel))
+  .put(controller.addStreetToArea(AreaModel));
 
 export default router;
