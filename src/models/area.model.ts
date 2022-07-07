@@ -5,20 +5,15 @@ const mongoose = require('mongoose');
 export interface IArea {
   zipCode: number;
   name: string;
-  addresses: string[];
+  streets: string[];
 }
 
-export interface IAreas {
-  areas: IArea[];
-}
-
-const DistrictsSchema = new Schema<IArea>({
+const AreaSchema = new Schema<IArea>({
   zipCode: { type: Number, required: true },
   name: { type: String, required: true },
-  addresses: { type: [String], required: false },
-});
-const AreasSchema = new Schema<IAreas>({
-  areas: { type: [DistrictsSchema], required: true },
+  streets: { type: [String], required: false },
 });
 
-export default mongoose.model('Areas', AreasSchema);
+AreaSchema.index({ zipCode: 1, name: 1 }, { unique: true });
+
+export default mongoose.model('Areas', AreaSchema);
