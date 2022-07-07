@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { PaymentStatus } from '../enums/PaymentStatus';
 
 const mongoose = require('mongoose');
 
