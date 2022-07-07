@@ -3,16 +3,16 @@ import DumpsterController from '../controllers/dumpster.controller';
 import DumpsterModel from '../models/dumpster.model';
 
 const router: Router = express.Router();
-const dumpsterController = new DumpsterController('Dumpster');
+const controller = new DumpsterController('Dumpster');
 
 router
   .route('/')
-  .get(dumpsterController.getAll(DumpsterModel))
-  .post(dumpsterController.createOne(DumpsterModel));
+  .get(controller.getAll(DumpsterModel))
+  .post(controller.createOne(DumpsterModel));
 router
   .route('/:id')
-  .get(dumpsterController.getByID(DumpsterModel))
-  .put(dumpsterController.updateByID(DumpsterModel))
-  .delete(dumpsterController.deleteByID(DumpsterModel));
+  .get(controller.getByID(DumpsterModel))
+  .put(controller.updateByID(DumpsterModel))
+  .delete(controller.deleteByID(DumpsterModel));
 
 export default router;

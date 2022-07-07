@@ -4,16 +4,16 @@ import { Roles } from '../enums/Roles';
 import OperatorModel from '../models/operator.model';
 
 const router: Router = express.Router();
-const operatorController = new OperatorController(Roles.OPERATOR.toString());
+const controller = new OperatorController(Roles.OPERATOR.toString());
 
 router
   .route('/')
-  .get(operatorController.getAll(OperatorModel))
-  .post(operatorController.createOne(OperatorModel));
+  .get(controller.getAll(OperatorModel))
+  .post(controller.createOne(OperatorModel));
 router
   .route('/:id')
-  .get(operatorController.getByID(OperatorModel))
-  .put(operatorController.updateByID(OperatorModel))
-  .delete(operatorController.deleteByID(OperatorModel));
+  .get(controller.getByID(OperatorModel))
+  .put(controller.updateByID(OperatorModel))
+  .delete(controller.deleteByID(OperatorModel));
 
 export default router;
