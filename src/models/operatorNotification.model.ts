@@ -1,4 +1,6 @@
 import { Schema } from 'mongoose';
+import { DumpsterErrorTypes } from '../enums/DumpsterErrorTypes';
+import { NotificationStatus } from '../enums/NotificationStatus';
 
 const mongoose = require('mongoose');
 
