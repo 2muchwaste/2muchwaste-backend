@@ -18,12 +18,12 @@ class BaseController<T> {
     });
   };
 
-  updateByID = (model: Model<T>) => async (req: Request, _res: Response) => {
+  updateByID = (model: Model<T>) => async (req: Request, res: Response) => {
     model.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true, runValidators: true },
-      (err, doc, res) => {
+      (err, doc) => {
         if (err) res.send(err);
         else {
           if (doc == null) res.status(404).send('Doc not found');

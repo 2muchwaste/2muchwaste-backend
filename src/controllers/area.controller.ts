@@ -1,5 +1,5 @@
 import BaseController from './base.controller';
-import AreaModel, { IArea } from '../models/area.model';
+import { IArea } from '../models/area.model';
 import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 
@@ -27,12 +27,12 @@ export default class AreaController extends BaseController<IArea> {
     };
 
   updateAreaByZipCode =
-    (model: Model<IArea>) => async (req: Request, _res: Response) => {
+    (model: Model<IArea>) => async (req: Request, res: Response) => {
       model.findOneAndUpdate(
         { zipCode: req.params.zipCode },
         req.body,
         { new: true, runValidators: true },
-        (err, doc, res) => {
+        (err, doc) => {
           if (err) res.send(err);
           else {
             if (doc == null) res.status(404).send('Doc not found');
@@ -43,12 +43,12 @@ export default class AreaController extends BaseController<IArea> {
     };
 
   updateAreaByZipCodeAndName =
-    (model: Model<IArea>) => async (req: Request, _res: Response) => {
+    (model: Model<IArea>) => async (req: Request, res: Response) => {
       model.findOneAndUpdate(
         { zipCode: req.params.zipCode, name: req.params.districtName },
         req.body,
         { new: true, runValidators: true },
-        (err, doc, res) => {
+        (err, doc) => {
           if (err) res.send(err);
           else {
             if (doc == null) res.status(404).send('Doc not found');
