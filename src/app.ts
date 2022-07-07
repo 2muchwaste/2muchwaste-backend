@@ -10,6 +10,7 @@ import depositRoutes from './routes/deposit.routes';
 import paymentRoutes from './routes/payment.routes';
 import costRoutes from './routes/cost.routes';
 import areaRoutes from './routes/area.routes';
+import operatorNotificationRoutes from './routes/operatorNotification.routes';
 
 const app: Application = express();
 dotenv.config();
@@ -30,6 +31,7 @@ app.use('api/v1/deposits', depositRoutes);
 app.use('api/v1/payments', paymentRoutes);
 app.use('api/v1/costs', costRoutes);
 app.use('api/v1/areas', areaRoutes);
+app.use('api/v1/operators/notifications', operatorNotificationRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to 2muchwaste backend!');
 });
