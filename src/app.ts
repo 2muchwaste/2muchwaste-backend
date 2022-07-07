@@ -7,6 +7,7 @@ import customerRoutes from './routes/customer.routes';
 import operatorRoutes from './routes/operator.routes';
 import dumpsterRoutes from './routes/dumpster.routes';
 import depositRoutes from './routes/deposit.routes';
+import paymentRoutes from './routes/payment.routes';
 
 const app: Application = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/operators', operatorRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.use('api/v1/deposits', depositRoutes);
+app.use('api/v1/payments', paymentRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to 2muchwaste backend!');
 });
