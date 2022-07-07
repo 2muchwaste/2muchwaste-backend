@@ -2,27 +2,20 @@ import { Schema } from 'mongoose';
 
 const mongoose = require('mongoose');
 
-export interface IDistrict {
+export interface IArea {
+  zipCode: number;
   name: string;
   addresses: string[];
 }
 
-export interface IDistricts {
-  zipCode: number;
-  districts: IDistrict[];
-}
-
 export interface IAreas {
-  areas: IDistricts[];
+  areas: IArea[];
 }
 
-const DistrictSchema = new Schema<IDistrict>({
-  name: { type: String, required: true },
-  addresses: { type: [String], required: true },
-});
-const DistrictsSchema = new Schema<IDistricts>({
+const DistrictsSchema = new Schema<IArea>({
   zipCode: { type: Number, required: true },
-  districts: { type: [DistrictSchema], required: true },
+  name: { type: String, required: true },
+  addresses: { type: [String], required: false },
 });
 const AreasSchema = new Schema<IAreas>({
   areas: { type: [DistrictsSchema], required: true },
