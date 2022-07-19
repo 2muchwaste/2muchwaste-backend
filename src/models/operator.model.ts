@@ -26,7 +26,7 @@ const EmptySchema = new Schema<IEmpty>({
 const operatorSchema = userSchema.discriminator(
   Roles.OPERATOR.toString(),
   new Schema({
-    districts: { type: [Schema.Types.ObjectId], required: false },
+    districts: { type: [Schema.Types.ObjectId], required: false, ref: 'Areas' },
     empties: { type: [EmptySchema], required: false },
   })
 );
