@@ -19,6 +19,7 @@ export default class AreaController extends BaseController<IArea> {
     (model: Model<IArea>) => async (req: Request, res: Response) => {
       model.findOne(
         { zipCode: req.params.zipCode, name: req.params.districtName },
+        { streets: 1, _id: 0 },
         (err: String, doc: Model<IArea>) => {
           if (err) res.send(err);
           res.json(doc);
