@@ -8,7 +8,7 @@ export default class OperatorController extends UserController<IOperator> {
     (model: Model<IOperator>) => async (req: Request, res: Response) => {
       model.find(
         { cf: req.params.cf },
-        'districts',
+        { districts: 1, _id: 0, __t: 0 },
         (err: String, doc: Model<IOperator>) => {
           if (err) res.send(err);
           res.json(doc);
@@ -20,7 +20,7 @@ export default class OperatorController extends UserController<IOperator> {
     (model: Model<IOperator>) => async (req: Request, res: Response) => {
       model.find(
         { cf: req.params.cf },
-        'empties',
+        { empties: 1, _id: 0, __t: 0 },
         (err: String, doc: Model<IOperator>) => {
           if (err) res.send(err);
           res.json(doc);
