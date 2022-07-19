@@ -7,6 +7,7 @@ export default class CostController extends BaseController<ICost> {
   getCost = (model: Model<ICost>) => async (req: Request, res: Response) => {
     model.findOne(
       { type: req.params.type },
+      { pricePerKilogram: 1, _id: 0 },
       (err: String, doc: Model<ICost>) => {
         if (err) res.send(err);
         res.json(doc);
