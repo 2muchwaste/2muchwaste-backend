@@ -5,7 +5,7 @@ import { Roles } from '../enums/Roles';
 const mongoose = require('mongoose');
 const userSchema = mongoose.model('User');
 
-interface IEmpty {
+export interface IEmpty {
   date: Date;
   dumpsterID: Schema.Types.ObjectId;
 }

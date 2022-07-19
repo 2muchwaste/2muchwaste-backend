@@ -51,4 +51,25 @@ export default class OperatorController extends UserController<IOperator> {
         }
       );
     };
+
+  addEmptyToOperator =
+    (model: Model<IOperator>) => async (req: Request, res: Response) => {
+      let date = new Date().toISOString();
+      model.findOneAndUpdate(
+        { cf: req.params.cf },
+        {
+          $addToSet: {
+            empties: { date: date, dumpsterID: req.body.dumpsterID },
+          },
+        },
+        { new: true, runValidators: true },
+        (err, doc) => {
+          if (err) res.send(err);
+          else {
+            if (doc == null) res.status(404).send('Doc not found');
+            else res.json(doc);
+          }
+        }
+      );
+    };
 }
