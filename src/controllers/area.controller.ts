@@ -82,7 +82,7 @@ export default class AreaController extends BaseController<IArea> {
           if (err) res.send(err);
           else {
             if (result.deletedCount === 0)
-              res.status(404).send('Customer not found');
+              res.status(404).send('Doc not found');
             else res.json('Doc successfully deleted');
           }
         }
@@ -97,7 +97,7 @@ export default class AreaController extends BaseController<IArea> {
           if (err) res.send(err);
           else {
             if (result.deletedCount === 0)
-              res.status(404).send('Customer not found');
+              res.status(404).send('Doc not found');
             else res.json('Doc successfully deleted');
           }
         }

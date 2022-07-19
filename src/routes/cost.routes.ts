@@ -10,9 +10,9 @@ router
   .get(controller.getAll(CostModel))
   .post(controller.createOne(CostModel));
 router
-  .route('/:id')
-  .get(controller.getByID(CostModel))
-  .put(controller.updateByID(CostModel))
-  .delete(controller.deleteByID(CostModel));
+  .route('/:type')
+  .get(controller.getCost(CostModel))
+  .put(controller.updatePrice(CostModel))
+  .delete(controller.deleteByType(CostModel));
 
 export default router;
