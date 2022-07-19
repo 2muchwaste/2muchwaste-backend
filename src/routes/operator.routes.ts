@@ -15,5 +15,9 @@ router
   .get(controller.getByID(OperatorModel))
   .put(controller.updateByID(OperatorModel))
   .delete(controller.deleteByID(OperatorModel));
+router
+  .route('/:cf/districts')
+  .get(controller.getDistrictsFromOpCF(OperatorModel));
+router.route('/:cf/empties').get(controller.getEmptiesFromOpCF(OperatorModel));
 
 export default router;

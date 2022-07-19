@@ -4,22 +4,11 @@ import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 
 export default class OperatorController extends UserController<IOperator> {
-  // TODO. Give only districts in output
-  getDistrictsFromOpEmail =
+  getDistrictsFromOpCF =
     (model: Model<IOperator>) => async (req: Request, res: Response) => {
       model.find(
-        { email: req.params.email },
-        (err: String, doc: Model<IOperator>) => {
-          if (err) res.send(err);
-          res.json(doc);
-        }
-      );
-    };
-  // TODO. Give only empties in output
-  getEmptiesFromOpEmail =
-    (model: Model<IOperator>) => async (req: Request, res: Response) => {
-      model.find(
-        { email: req.params.email },
+        { cf: req.params.cf },
+        'districts',
         (err: String, doc: Model<IOperator>) => {
           if (err) res.send(err);
           res.json(doc);
@@ -27,4 +16,15 @@ export default class OperatorController extends UserController<IOperator> {
       );
     };
 
+  getEmptiesFromOpCF =
+    (model: Model<IOperator>) => async (req: Request, res: Response) => {
+      model.find(
+        { cf: req.params.cf },
+        'empties',
+        (err: String, doc: Model<IOperator>) => {
+          if (err) res.send(err);
+          res.json(doc);
+        }
+      );
+    };
 }
