@@ -9,7 +9,7 @@ class BaseController<T> {
   }
 
   getByID = (model: Model<T>) => async (req: Request, res: Response) => {
-    model.findById(req.params.id, function (err: String, doc: Model<T>) {
+    model.findById(req.params.id, (err: String, doc: Model<T>) => {
       if (err) res.send(err);
       else {
         if (doc == null) res.status(404).send('Doc not found');
