@@ -46,4 +46,14 @@ export default class DepositController extends BaseController<IDeposit> {
         }
       );
     };
+  getDepositsFromUser =
+    (model: Model<IDeposit>) => async (req: Request, res: Response) => {
+      model.find(
+        { userID: req.params.id },
+        (err: String, doc: Model<IDeposit>) => {
+          if (err) res.send(err);
+          res.json(doc);
+        }
+      );
+    };
 }

@@ -17,5 +17,6 @@ router
 router
   .route('/dumpster/:id')
   .get(controller.getDepositsFromDumpster(DepositModel));
+router.route('/user/:id').get(controller.getDepositsFromUser(DepositModel));
 
 export default router;
