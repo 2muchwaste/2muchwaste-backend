@@ -5,7 +5,7 @@ import { Roles } from '../enums/Roles';
 const mongoose = require('mongoose');
 const userSchema = mongoose.model('User');
 
-interface INotification {
+export interface INotification {
   date: Date;
   text: string;
   read: boolean;
@@ -20,7 +20,7 @@ const NotificationSchema = new Schema<INotification>({
   date: { type: Date, required: true },
   text: { type: String, required: true },
   read: { type: Boolean, required: true },
-  depositID: { type: Schema.Types.ObjectId, required: true, ref: 'Deposits' },
+  depositID: { type: Schema.Types.ObjectId, required: false, ref: 'Deposits' },
 });
 
 const customerSchema = userSchema.discriminator(
