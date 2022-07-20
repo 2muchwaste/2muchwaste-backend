@@ -20,14 +20,12 @@ export default class OperatorController extends UserController<IOperator> {
 
   addDistrictToOperator =
     (model: Model<IOperator>) => async (req: Request, res: Response) => {
-      let district;
       AreaModel.findOne(
         { zipCode: req.body.zipCode, name: req.body.name },
         (areaErr: String, areaDoc: Model<IArea>) => {
-          district = areaDoc;
           model.findOneAndUpdate(
             { cf: req.params.cf },
-            { $addToSet: { districts: district } },
+            { $addToSet: { districts: areaDoc } },
             { new: true, runValidators: true },
             (err, doc) => {
               if (err) res.send(err);
@@ -68,15 +66,16 @@ export default class OperatorController extends UserController<IOperator> {
           if (err) res.send(err);
           else {
             if (doc == null) res.status(404).send('Doc not found');
-            else res.json(doc);
-            DumpsterModel.findByIdAndUpdate(
-              req.body.dumpsterID,
-              { $set: { actualWeight: 0 } },
-              (dumpErr: String, dumpDoc: IDumpster) => {
-                if (dumpErr) res.send(dumpErr);
-                res.json(dumpDoc);
-              }
-            );
+            else {
+              DumpsterModel.findByIdAndUpdate(
+                req.body.dumpsterID,
+                { $set: { actualWeight: 0 } },
+                (dumpErr: String, dumpDoc: IDumpster) => {
+                  if (dumpErr) res.send(dumpErr);
+                  res.json(dumpDoc);
+                }
+              );
+            }
           }
         }
       );
