@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 import CostModel, { ICost } from '../models/cost.model';
 import DumpsterModel, { IDumpster } from '../models/dumpster.model';
+import CustomerModel, { ICustomer } from '../models/customer.model';
 
 export default class DepositController extends BaseController<IDeposit> {
   createDeposit =
@@ -29,7 +30,33 @@ export default class DepositController extends BaseController<IDeposit> {
               newDoc.save((err: String, doc: Model<IDeposit>) => {
                 console.log('save:' + doc);
                 if (err) res.send(err);
-                res.status(201).json(doc);
+                let text =
+                  'Deposit successful: ' +
+                  req.body.quantity +
+                  'kg of ' +
+                  dumpDoc.type +
+                  ' deposited for a price of ' +
+                  req.body.quantity * costDoc.pricePerKilogram +
+                  '€. (€/kg: ' +
+                  costDoc.pricePerKilogram +
+                  ')';
+                CustomerModel.findByIdAndUpdate(
+                  req.body.userID,
+                  {
+                    $addToSet: {
+                      notifications: {
+                        date: new Date().toISOString(),
+                        text: text,
+                        read: false,
+                        depositID: newDoc.depositID,
+                      },
+                    },
+                  },
+                  (custErr: String, _custDoc: Model<ICustomer>) => {
+                    if (custErr) res.send(custErr);
+                    else res.status(201).json(doc);
+                  }
+                );
               });
             }
           );
