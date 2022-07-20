@@ -44,4 +44,15 @@ export default class CustomerController extends UserController<ICustomer> {
         }
       );
     };
+  readNotification =
+    (model: Model<ICustomer>) => async (req: Request, res: Response) => {
+      model.findOneAndUpdate(
+        { cf: req.params.cf, 'notifications._id': req.params.id },
+        { $set: { 'notifications.$.read': true } },
+        (err: String, doc: Model<ICustomer>) => {
+          if (err) res.send(err);
+          else res.json(doc);
+        }
+      );
+    };
 }

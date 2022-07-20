@@ -22,6 +22,9 @@ router
   .route('/:cf/notifications')
   .get(customerController.getNotifications(CustomerModel))
   .post(customerController.addNotification(CustomerModel));
+router
+  .route('/:cf/notifications/:id')
+  .put(customerController.readNotification(CustomerModel));
 router.route('/signup').post(customerController.signUp(CustomerModel));
 router.route('/login').post(customerController.login(CustomerModel));
 
