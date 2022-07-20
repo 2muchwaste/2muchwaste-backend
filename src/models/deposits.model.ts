@@ -3,7 +3,7 @@ import { TrashTypes } from '../enums/TrashTypes';
 
 const mongoose = require('mongoose');
 
-interface IDeposit {
+export interface IDeposit {
   date: Date;
   quantity: number;
   type: string;
@@ -11,10 +11,6 @@ interface IDeposit {
   openingTimeSeconds: number;
   dumpsterID: Schema.Types.ObjectId;
   userID: Schema.Types.ObjectId;
-}
-
-export interface IDeposits {
-  deposits: IDeposit[];
 }
 
 const DepositSchema = new Schema<IDeposit>({
@@ -35,7 +31,4 @@ const DepositSchema = new Schema<IDeposit>({
   },
   userID: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
 });
-const DepositsSchema = new Schema<IDeposits>({
-  deposits: { type: [DepositSchema], required: true },
-});
-export default mongoose.model('Deposits', DepositsSchema);
+export default mongoose.model('Deposits', DepositSchema);

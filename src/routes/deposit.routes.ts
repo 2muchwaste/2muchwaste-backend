@@ -1,18 +1,21 @@
 import express, { Router } from 'express';
 import DepositController from '../controllers/deposit.controller';
-import DepositsModel from '../models/deposits.model';
+import DepositModel from '../models/deposits.model';
 
 const router: Router = express.Router();
 const controller = new DepositController('Deposits');
 
 router
   .route('/')
-  .get(controller.getAll(DepositsModel))
-  .post(controller.createOne(DepositsModel));
+  .get(controller.getAll(DepositModel))
+  .post(controller.createDeposit(DepositModel));
 router
   .route('/:id')
-  .get(controller.getByID(DepositsModel))
-  .put(controller.updateByID(DepositsModel))
-  .delete(controller.deleteByID(DepositsModel));
+  .get(controller.getByID(DepositModel))
+  .put(controller.updateByID(DepositModel))
+  .delete(controller.deleteByID(DepositModel));
+router
+  .route('/dumpster/:id')
+  .get(controller.getDepositsFromDumpster(DepositModel));
 
 export default router;
