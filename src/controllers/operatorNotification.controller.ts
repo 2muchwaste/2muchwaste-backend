@@ -18,7 +18,7 @@ export default class OperatorNotificationController extends BaseController<IOper
         }
       );
     };
-  getNotificationsByDumpstersFull =
+  getNotificationsByProblemFull =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       this.service.getNotificationError(
         model,
@@ -27,7 +27,7 @@ export default class OperatorNotificationController extends BaseController<IOper
         DumpsterErrorTypes.FULL
       );
     };
-  getNotificationsByDumpstersWithPhyProblems =
+  getNotificationsByProblemPhy =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       this.service.getNotificationError(
         model,
@@ -36,7 +36,7 @@ export default class OperatorNotificationController extends BaseController<IOper
         DumpsterErrorTypes.PHYSICAL_PROBLEM
       );
     };
-  getNotificationsByDumpstersWithObstruction =
+  getNotificationsByProblemObstruction =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       this.service.getNotificationError(
         model,
@@ -45,7 +45,7 @@ export default class OperatorNotificationController extends BaseController<IOper
         DumpsterErrorTypes.OBSTRUCTION
       );
     };
-  getNotificationsByDumpstersWithError =
+  getNotificationsByProblemError =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       this.service.getNotificationError(
         model,
