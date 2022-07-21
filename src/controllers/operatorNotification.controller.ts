@@ -26,7 +26,7 @@ export default class OperatorNotificationController extends BaseController<IOper
   getPendingNotifications =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       model.find(
-        { status: NotificationStatus.PENDING },
+        { status: NotificationStatus.PENDING.toString() },
         (err: String, doc: Model<IOperatorNotification>) => {
           if (err) res.send(err);
           else res.json(doc);
