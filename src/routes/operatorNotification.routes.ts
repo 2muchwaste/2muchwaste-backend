@@ -8,7 +8,7 @@ const controller = new OperatorNotificationController('OperatorNotification');
 router
   .route('/')
   .get(controller.getAll(OperatorNotificationModel))
-  .post(controller.createOne(OperatorNotificationModel));
+  .post(controller.createNotification(OperatorNotificationModel));
 router
   .route('/:id')
   .get(controller.getByID(OperatorNotificationModel))

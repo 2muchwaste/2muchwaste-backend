@@ -1,5 +1,7 @@
 import BaseController from './base.controller';
-import { IOperatorNotification } from '../models/operatorNotification.model';
+import OperatorNotificationModel, {
+  IOperatorNotification,
+} from '../models/operatorNotification.model';
 import { Request, Response } from 'express';
 import { Model } from 'mongoose';
 import { NotificationStatus } from '../enums/NotificationStatus';
@@ -8,6 +10,19 @@ import { DumpsterErrorTypes } from '../enums/DumpsterErrorTypes';
 
 export default class OperatorNotificationController extends BaseController<IOperatorNotification> {
   service = new OperatorNotificationService();
+  createNotification =
+    (_model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      const newDoc = new OperatorNotificationModel({
+        dumpsterID: req.body.dumpsterID,
+        date: new Date().toISOString(),
+        type: req.body.type,
+        status: NotificationStatus.PENDING,
+      });
+      newDoc.save((err: String, doc: Model<IOperatorNotification>) => {
+        if (err) res.send(err);
+        res.status(201).json(doc);
+      });
+    };
   getPendingNotifications =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       model.find(

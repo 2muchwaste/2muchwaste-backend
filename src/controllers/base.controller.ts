@@ -36,7 +36,6 @@ class BaseController<T> {
   createOne = (model: Model<T>) => async (req: Request, res: Response) => {
     const newDoc = new model(req.body);
     newDoc.save((err: String, doc: Model<T>) => {
-      console.log(doc);
       if (err) res.send(err);
       res.status(201).json(doc);
     });
