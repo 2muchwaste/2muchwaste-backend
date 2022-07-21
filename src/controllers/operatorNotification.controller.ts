@@ -2,8 +2,58 @@ import BaseController from './base.controller';
 import { IOperatorNotification } from '../models/operatorNotification.model';
 import { Request, Response } from 'express';
 import { Model } from 'mongoose';
+import { NotificationStatus } from '../enums/NotificationStatus';
+import OperatorNotificationService from '../services/operatorNotification.service';
+import { DumpsterErrorTypes } from '../enums/DumpsterErrorTypes';
 
 export default class OperatorNotificationController extends BaseController<IOperatorNotification> {
+  service = new OperatorNotificationService();
+  getPendingNotifications =
+    (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      model.find(
+        { status: NotificationStatus.PENDING },
+        (err: String, doc: Model<IOperatorNotification>) => {
+          if (err) res.send(err);
+          else res.json(doc);
+        }
+      );
+    };
+  getNotificationsByDumpstersFull =
+    (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      this.service.getNotificationError(
+        model,
+        req,
+        res,
+        DumpsterErrorTypes.FULL
+      );
+    };
+  getNotificationsByDumpstersWithPhyProblems =
+    (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      this.service.getNotificationError(
+        model,
+        req,
+        res,
+        DumpsterErrorTypes.PHYSICAL_PROBLEM
+      );
+    };
+  getNotificationsByDumpstersWithObstruction =
+    (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      this.service.getNotificationError(
+        model,
+        req,
+        res,
+        DumpsterErrorTypes.OBSTRUCTION
+      );
+    };
+  getNotificationsByDumpstersWithError =
+    (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      this.service.getNotificationError(
+        model,
+        req,
+        res,
+        DumpsterErrorTypes.ERROR
+      );
+    };
   getStatus =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       model.findById(
