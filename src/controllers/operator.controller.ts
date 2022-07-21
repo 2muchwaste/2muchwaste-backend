@@ -3,7 +3,8 @@ import UserController from './user.controller';
 import { Request, Response } from 'express';
 import AreaModel, { IArea } from '../models/area.model';
 import { Model } from 'mongoose';
-import DumpsterModel, { IDumpster } from '../models/dumpster.model';
+import DumpsterModel from '../models/dumpster.model';
+import DumpsterService from '../services/dumpster.service';
 
 export default class OperatorController extends UserController<IOperator> {
   getDistrictsFromOpCF =
@@ -67,13 +68,10 @@ export default class OperatorController extends UserController<IOperator> {
           else {
             if (doc == null) res.status(404).send('Doc not found');
             else {
-              DumpsterModel.findByIdAndUpdate(
+              new DumpsterService().emptyDumpster(
+                DumpsterModel,
                 req.body.dumpsterID,
-                { $set: { actualWeight: 0 } },
-                (dumpErr: String, dumpDoc: IDumpster) => {
-                  if (dumpErr) res.send(dumpErr);
-                  res.json(dumpDoc);
-                }
+                res
               );
             }
           }
