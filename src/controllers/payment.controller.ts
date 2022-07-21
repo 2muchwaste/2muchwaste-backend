@@ -35,4 +35,15 @@ export default class PaymentController extends BaseController<IPayment> {
         }
       );
     };
+  setPaymentDate =
+    (model: Model<IPayment>) => (req: Request, res: Response) => {
+      model.findByIdAndUpdate(
+        req.params.id,
+        { $set: { paymentDate: new Date().toISOString() } },
+        (err: String, doc: Model<IPayment>) => {
+          if (err) res.send(err);
+          else res.json(doc);
+        }
+      );
+    };
 }
