@@ -18,6 +18,5 @@ router
   .route('/:id/status')
   .get(controller.getStatus(PaymentModel))
   .put(controller.setStatus(PaymentModel));
-router.route('/:id/payment').put(controller.setPaymentDate(PaymentModel));
 router.route('/user/:userid').get(controller.getUserInvoices(PaymentModel));
 export default router;
