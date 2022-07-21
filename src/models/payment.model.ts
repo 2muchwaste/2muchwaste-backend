@@ -11,7 +11,7 @@ export interface IPayment {
   status: string;
 }
 
-const OperatorNotificationSchema = new Schema<IPayment>({
+const PaymentSchema = new Schema<IPayment>({
   userID: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   invoiceIssueDate: { type: Date, required: true },
   paymentDate: { type: Date, required: false },
@@ -24,7 +24,4 @@ const OperatorNotificationSchema = new Schema<IPayment>({
   },
 });
 
-export default mongoose.model(
-  'OperatorNotification',
-  OperatorNotificationSchema
-);
+export default mongoose.model('Payment', PaymentSchema);

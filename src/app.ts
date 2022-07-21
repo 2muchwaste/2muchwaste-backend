@@ -27,7 +27,7 @@ app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/operators', operatorRoutes);
-// app.use('/api/v1/operators/notifications', operatorNotificationRoutes);
+app.use('/api/v1/operators/notifications', operatorNotificationRoutes);
 app.use('/api/v1/deposits', depositRoutes);
 app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/costs', costRoutes);
