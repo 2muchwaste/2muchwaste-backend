@@ -1,38 +1,26 @@
 import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 import BaseController from './base.controller';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { SECRET_KEY } from './auth.controller';
 import { IUser } from '../models/user.model';
+import UserService from '../services/user.service';
 
 class UserController<T extends IUser> extends BaseController<T> {
-  signUp = (model: Model<T>) => (req: Request, res: Response) => {
-    const user = new model(req.body);
-    user.save((err: String, doc: Model<T>) => {
-      if (err) res.send(err);
-      res.status(201).json(doc);
-    });
+  service = new UserService();
+  signUp = (_model: Model<T>) => async (req: Request, res: Response) => {
+    try {
+      await this.service.signUp(req.body);
+      res.status(200).send('Inserted successfully');
+    } catch (err) {
+      return res.status(500).send(err);
+    }
   };
 
-  login = (model: Model<T>) => async (req: Request, _res: Response) => {
+  login = (_model: Model<T>) => async (req: Request, res: Response) => {
     try {
-      const user = new model(req.body);
-      const foundUser = await model.findOne({ email: user.email });
-      if (!foundUser) throw new Error('Email of user is not correct');
-      const isMatch = bcrypt.compareSync(user.password, foundUser.passwordHash);
-      if (isMatch) {
-        const token = jwt.sign(
-          { _id: foundUser._id?.toString(), email: foundUser.email },
-          SECRET_KEY,
-          {
-            expiresIn: '2 days',
-          }
-        );
-        return foundUser;
-      } else throw new Error('Password is not correct');
-    } catch (error) {
-      throw error;
+      const foundUser = await this.service.login(req.body);
+      res.status(200).send(foundUser);
+    } catch (err) {
+      throw err;
     }
   };
 }

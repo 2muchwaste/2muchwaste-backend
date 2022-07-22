@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { Roles } from '../enums/Roles';
+import bcrypt from 'bcrypt';
 
 export interface IUser {
   name: string;
@@ -32,6 +33,16 @@ const UserSchema = new Schema<IUser>({
   },
   passwordHash: { type: String, required: true },
   passwordSalt: { type: String, required: true },
+});
+
+const saltRounds = 8;
+UserSchema.pre('save', async next => {
+  // @ts-ignore
+  if (this.isModified('passwordHash')) {
+    // @ts-ignore
+    this.passwordHash = await bcrypt.hash(this.passwordHash, saltRounds);
+  }
+  next();
 });
 
 export default mongoose.model('User', UserSchema);
