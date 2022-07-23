@@ -11,18 +11,30 @@ import paymentRoutes from './routes/payment.routes';
 import costRoutes from './routes/cost.routes';
 import areaRoutes from './routes/area.routes';
 import operatorNotificationRoutes from './routes/operatorNotification.routes';
+import cookieSession from 'cookie-session';
+import roleRoutes from './routes/role.routes';
+import authRoutes from './routes/auth.routes';
 
 const app: Application = express();
 dotenv.config();
-app.use(express.json({ limit: '10kb' }));
 app.use(
   cors({
     origin: process.env.ORIGIN,
   })
 );
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  cookieSession({
+    name: '2muchwaste-session',
+    secret: process.env.COOKIE_SECRET,
+    httpOnly: true,
+  })
+);
 app.use(helmet());
 app.use(express.static('public', { maxAge: 86400000 }));
 
+app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/customers', customerRoutes);
@@ -32,6 +44,7 @@ app.use('/api/v1/deposits', depositRoutes);
 app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/costs', costRoutes);
 app.use('/api/v1/areas', areaRoutes);
+app.use('/api/v1/roles', roleRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to 2muchwaste backend!');
 });

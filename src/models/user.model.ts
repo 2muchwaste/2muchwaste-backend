@@ -1,8 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
-import { Roles } from '../enums/Roles';
-import bcrypt from 'bcrypt';
 
-export interface IUser {
+export interface IUser extends mongoose.Document {
   name: string;
   surname: string;
   birthday: Date;
@@ -11,9 +9,8 @@ export interface IUser {
   address: string;
   zipCode: number;
   city: string;
-  role: string;
-  passwordHash: string;
-  passwordSalt: string;
+  role: Schema.Types.ObjectId;
+  password: string;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -26,23 +23,11 @@ const UserSchema = new Schema<IUser>({
   zipCode: { type: Number, required: true },
   city: { type: String, required: true },
   role: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
-    default: Roles.CUSTOMER,
-    enum: Object.values(Roles),
+    ref: 'Role',
   },
-  passwordHash: { type: String, required: true },
-  passwordSalt: { type: String, required: true },
-});
-
-const saltRounds = 8;
-UserSchema.pre('save', async next => {
-  // @ts-ignore
-  if (this.isModified('passwordHash')) {
-    // @ts-ignore
-    this.passwordHash = await bcrypt.hash(this.passwordHash, saltRounds);
-  }
-  next();
+  password: { type: String, required: true },
 });
 
 export default mongoose.model('User', UserSchema);
