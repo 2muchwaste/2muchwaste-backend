@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
 import AreaController from '../controllers/area.controller';
 import AreaModel from '../models/area.model';
-import { isOperator, verifyToken } from '../middlewares/authJwt';
+import { operatorHandlers } from '../utils/constants';
 
 const router: Router = express.Router();
 const controller = new AreaController('Areas');
-router.use(verifyToken, isOperator);
+router.use(operatorHandlers);
 router
   .route('/')
   .get(controller.getAll(AreaModel))

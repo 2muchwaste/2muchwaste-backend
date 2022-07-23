@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
 import DepositController from '../controllers/deposit.controller';
 import DepositModel from '../models/deposits.model';
-import { isCustomer, verifyToken } from '../middlewares/authJwt';
+import { customerHandlers } from '../utils/constants';
 
 const router: Router = express.Router();
 const controller = new DepositController('Deposits');
 
-router.use(verifyToken, isCustomer);
+router.use(customerHandlers);
 router
   .route('/')
   .get(controller.getAll(DepositModel))
