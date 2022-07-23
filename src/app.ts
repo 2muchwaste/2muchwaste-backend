@@ -34,7 +34,7 @@ app.use(
 app.use(helmet());
 app.use(express.static('public', { maxAge: 86400000 }));
 
-app.use('api/v1/auth/', authRoutes);
+app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/customers', customerRoutes);
