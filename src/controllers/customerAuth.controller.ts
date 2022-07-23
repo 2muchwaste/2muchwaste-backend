@@ -4,13 +4,14 @@ import RoleModel, { IRole } from '../models/role.model';
 import { Model } from 'mongoose';
 import CustomerModel, { ICustomer } from '../models/customer.model';
 import jwt from 'jsonwebtoken';
+import { IUser } from '../models/user.model';
 
-export default class CustomerAuthController {
+export default class CustomerAuthController<T extends IUser> {
   private saltRounds: number = 8;
 
-  signUp = () => async (req: Request, res: Response) => {
-    RoleModel.findOne({ name: req.body.role }, (err: String, doc: any) => {
-      const newUser = new CustomerModel({
+  signUp = (model: Model<T>) => async (req: Request, res: Response) => {
+    RoleModel.findOne({ name: req.body.role }, (err: String, doc: IRole) => {
+      const newUser = new model({
         name: req.body.name,
         surname: req.body.surname,
         birthday: req.body.birthday,
@@ -22,9 +23,10 @@ export default class CustomerAuthController {
         password: bcrypt.hashSync(req.body.password, this.saltRounds),
         role: doc._id,
       });
-      newUser.save((err: String, docRes: Model<ICustomer>) => {
+      console.log(newUser);
+      newUser.save((err, doc) => {
         if (err) res.send(err);
-        else res.status(201).json(docRes);
+        else res.status(201).json(doc);
       });
     });
   };
