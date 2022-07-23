@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { Roles } from '../enums/Roles';
 
-export interface IRole {
+export interface IRole extends mongoose.Document {
   name: string;
 }
 
