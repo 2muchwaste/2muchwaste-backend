@@ -7,7 +7,10 @@ const controller = new AuthController();
 
 router.route('/:role/signin').post(controller.signIn());
 router.route('/:role/signout').post(controller.signOut());
-router.use(verifySignUp.checkDuplicateEmail, verifySignUp.checkRoleExists);
-router.route('/:role/signup').post(controller.signUp());
+router.post(
+  '/:role/signup',
+  [verifySignUp.checkDuplicateEmail, verifySignUp.checkRoleExists],
+  controller.signUp()
+);
 
 export default router;

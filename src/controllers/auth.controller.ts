@@ -49,14 +49,14 @@ export default class AuthController<T extends IUser> {
       .findOne({
         email: req.body.email,
       })
-      .populate('roles', '-__v')
+      .populate('role', '-__v')
       .exec(
         (
           err: any,
           user: { password: string; _id: any; email: any; role: any }
         ) => {
           if (err) {
-            res.status(500).send({ message: err });
+            return res.status(500).send({ message: 'error! ' + err });
           }
           if (!user)
             return res.status(404).send({ message: 'User not found.' });
