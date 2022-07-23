@@ -23,10 +23,10 @@ const checkDuplicateEmail = (
 };
 // Maybe useless with role as enum in backend
 const checkRoleExists = (req: Request, res: Response, next: NextFunction) => {
-  if (req.body.role) {
+  if (req.params.role) {
     if (Object.values(Roles).includes(req.body.role)) {
       res.status(400).send({
-        message: 'Failed! Role ${req.body.roles[i]} does not exist!',
+        message: 'Failed! Role ${req.params.role} does not exist!',
       });
       return;
     }
