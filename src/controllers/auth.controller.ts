@@ -2,11 +2,10 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import RoleModel, { IRole } from '../models/role.model';
 import { Model } from 'mongoose';
-import CustomerModel, { ICustomer } from '../models/customer.model';
 import jwt from 'jsonwebtoken';
 import { IUser } from '../models/user.model';
 
-export default class CustomerAuthController<T extends IUser> {
+export default class AuthController<T extends IUser> {
   private saltRounds: number = 8;
 
   signUp = (model: Model<T>) => async (req: Request, res: Response) => {
@@ -31,12 +30,13 @@ export default class CustomerAuthController<T extends IUser> {
     });
   };
 
-  signIn = () => (req: Request, res: Response) => {
-    CustomerModel.findOne({
-      email: req.body.email,
-    })
+  signIn = (model: Model<T>) => (req: Request, res: Response) => {
+    model
+      .findOne({
+        email: req.body.email,
+      })
       .populate('roles', '-__v')
-      .exec((err: String, user: ICustomer) => {
+      .exec((err, user) => {
         if (err) {
           res.status(500).send({ message: err });
         }
@@ -60,7 +60,7 @@ export default class CustomerAuthController<T extends IUser> {
       });
   };
 
-  signOut = () => async (req: Request, res: Response) => {
+  signOut = (_model: Model<T>) => async (req: Request, res: Response) => {
     try {
       // @ts-ignore
       req.session = null;
