@@ -82,7 +82,11 @@ export const isCustomer = (req: Request, res: Response, next: NextFunction) => {
         res.status(500).send({ message: err });
         return;
       }
-      if (role.name === 'customer' || role.name === 'admin') {
+      if (
+        role.name === 'customer' ||
+        role.name === 'operator' ||
+        role.name === 'admin'
+      ) {
         next();
         return;
       }
