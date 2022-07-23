@@ -23,76 +23,70 @@ export const verifyToken = (
 
 export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   // @ts-ignore
+  if (!req.userID)
+    return res.status(403).send({ message: 'Require admin role!' });
+  // @ts-ignore
   UserModel.findById(req.userID).exec((err, user: IUser) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
-    RoleModel.find(
-      { _id: { $in: user.role } },
-      (err: String, roles: [IRole]) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === 'admin') {
-            next();
-            return;
-          }
-        }
-        res.status(403).send({ message: 'Require admin role!' });
+    RoleModel.find({ _id: { $in: user.role } }, (err: String, role: IRole) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
       }
-    );
+      if (role.name === 'admin') {
+        next();
+        return;
+      }
+      res.status(403).send({ message: 'Require admin role!' });
+    });
   });
 };
 export const isOperator = (req: Request, res: Response, next: NextFunction) => {
   // @ts-ignore
-  UserModel.findById(req.userID).exec((err, user: IUser) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    RoleModel.find(
-      { _id: { $in: user.role } },
-      (err: String, roles: [IRole]) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === 'operator') {
-            next();
-            return;
-          }
-        }
-        res.status(403).send({ message: 'Require operator role!' });
-      }
-    );
-  });
-};
-export const isCustomer = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.userID)
+    return res.status(403).send({ message: 'Require operator role!' });
   // @ts-ignore
   UserModel.findById(req.userID).exec((err, user: IUser) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
-    RoleModel.find(
-      { _id: { $in: user.role } },
-      (err: String, roles: [IRole]) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === 'customer') {
-            next();
-            return;
-          }
-        }
-        res.status(403).send({ message: 'Require customer role!' });
+    RoleModel.find({ _id: { $in: user.role } }, (err: String, role: IRole) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
       }
-    );
+      if (role.name === 'operator' || role.name === 'admin') {
+        next();
+        return;
+      }
+      res.status(403).send({ message: 'Require operator role!' });
+    });
+  });
+};
+export const isCustomer = (req: Request, res: Response, next: NextFunction) => {
+  // @ts-ignore
+  if (!req.userID)
+    return res.status(403).send({ message: 'Require customer role!' });
+  // @ts-ignore
+  UserModel.findById(req.userID).exec((err, user: IUser) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    RoleModel.find({ _id: { $in: user.role } }, (err: String, role: IRole) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+      if (role.name === 'customer' || role.name === 'admin') {
+        next();
+        return;
+      }
+      res.status(403).send({ message: 'Require customer role!' });
+    });
   });
 };
