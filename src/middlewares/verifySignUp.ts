@@ -22,21 +22,19 @@ const checkDuplicateEmail = (
   });
 };
 // Maybe useless with role as enum in backend
-const checkRolesExisted = (req: Request, res: Response, next: NextFunction) => {
-  if (req.body.roles) {
-    for (let i = 0; i < req.body.roles.length; i++) {
-      if (Object.values(Roles).includes(req.body.roles[i])) {
-        res.status(400).send({
-          message: 'Failed! Role ${req.body.roles[i]} does not exist!',
-        });
-        return;
-      }
+const checkRoleExists = (req: Request, res: Response, next: NextFunction) => {
+  if (req.body.role) {
+    if (Object.values(Roles).includes(req.body.role)) {
+      res.status(400).send({
+        message: 'Failed! Role ${req.body.roles[i]} does not exist!',
+      });
+      return;
     }
   }
   next();
 };
 
 export const verifySignUp = {
-  checkDuplicateCForEmail: checkDuplicateEmail,
-  checkRolesExisted,
+  checkDuplicateEmail: checkDuplicateEmail,
+  checkRoleExists: checkRoleExists,
 };
