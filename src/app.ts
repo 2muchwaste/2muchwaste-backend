@@ -13,6 +13,7 @@ import areaRoutes from './routes/area.routes';
 import operatorNotificationRoutes from './routes/operatorNotification.routes';
 import cookieSession from 'cookie-session';
 import roleRoutes from './routes/role.routes';
+import authRoutes from './routes/auth.routes';
 
 const app: Application = express();
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(
 app.use(helmet());
 app.use(express.static('public', { maxAge: 86400000 }));
 
+app.use('api/v1/auth/', authRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/customers', customerRoutes);
