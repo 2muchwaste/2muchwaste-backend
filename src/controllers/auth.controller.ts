@@ -35,7 +35,6 @@ export default class AuthController<T extends IUser> {
         password: bcrypt.hashSync(req.body.password, this.saltRounds),
         role: doc._id,
       });
-      console.log(newUser);
       newUser.save((err: any, doc: any) => {
         if (err) res.send(err);
         else res.status(201).json(doc);
