@@ -1,7 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
 
-export interface IUser {
+export interface IUser extends mongoose.Document {
   name: string;
   surname: string;
   birthday: Date;
@@ -29,16 +28,6 @@ const UserSchema = new Schema<IUser>({
     ref: 'Role',
   },
   password: { type: String, required: true },
-});
-
-const saltRounds = 8;
-UserSchema.pre('save', async next => {
-  // @ts-ignore
-  if (this.isModified('passwordHash')) {
-    // @ts-ignore
-    this.passwordHash = await bcrypt.hash(this.passwordHash, saltRounds);
-  }
-  next();
 });
 
 export default mongoose.model('User', UserSchema);
