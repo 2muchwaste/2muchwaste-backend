@@ -33,6 +33,10 @@ app.use(
 );
 app.use(helmet());
 app.use(express.static('public', { maxAge: 86400000 }));
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+  next();
+});
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
