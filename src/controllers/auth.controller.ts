@@ -66,14 +66,15 @@ export default class AuthController<T extends IUser> {
           if (!passwordIsValid)
             return res.status(401).send({ message: 'Invalid password' });
           const secret = process.env.JWT_SECRET || '';
-          // @ts-ignore
-          req.session.token = jwt.sign({ _id: user._id }, secret, {
+          const token = jwt.sign({ _id: user._id }, secret, {
             expiresIn: 86400, // 24 hours
           });
+          req.session.token = token;
           res.status(200).send({
             id: user._id,
             email: user.email,
             role: user.role,
+            token: token,
           });
         }
       );
