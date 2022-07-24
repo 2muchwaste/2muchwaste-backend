@@ -12,11 +12,11 @@ router
 router
   .route('/:id')
   .get(controller.getByID(PaymentModel))
-  .put(controller.updateByID(PaymentModel))
+  .patch(controller.updateByID(PaymentModel))
   .delete(controller.deleteByID(PaymentModel));
 router
   .route('/:id/status')
   .get(controller.getStatus(PaymentModel))
-  .put(controller.setStatus(PaymentModel));
+  .patch(controller.setStatus(PaymentModel));
 router.route('/user/:userid').get(controller.getUserInvoices(PaymentModel));
 export default router;
