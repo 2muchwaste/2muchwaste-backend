@@ -2,13 +2,11 @@ import express, { Router } from 'express';
 import CustomerController from '../controllers/customer.controller';
 import CustomerModel from '../models/customer.model';
 import { Roles } from '../enums/Roles';
-import { isCustomer, verifyToken } from '../middlewares/authJwt';
 import { adminHandlers, customerHandlers } from '../utils/constants';
 const router: Router = express.Router();
 
 const customerController = new CustomerController(Roles.CUSTOMER.toString());
 
-router.use(verifyToken, isCustomer);
 router.get('/:id', customerHandlers, customerController.getByID(CustomerModel));
 router.put(
   '/:id',
