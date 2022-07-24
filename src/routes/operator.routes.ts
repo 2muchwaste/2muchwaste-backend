@@ -11,7 +11,7 @@ router.use(operatorHandlers);
 router
   .route('/:id')
   .get(controller.getByID(OperatorModel))
-  .put(controller.updateByID(OperatorModel))
+  .patch(controller.updateByID(OperatorModel))
   .delete(controller.deleteByID(OperatorModel));
 router
   .route('/:cf/districts')

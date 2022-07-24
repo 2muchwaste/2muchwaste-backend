@@ -12,7 +12,7 @@ router
 router
   .route('/:id')
   .get(controller.getByID(OperatorNotificationModel))
-  .put(controller.updateByID(OperatorNotificationModel))
+  .patch(controller.updateByID(OperatorNotificationModel))
   .delete(controller.deleteByID(OperatorNotificationModel));
 router
   .route('/pending')
