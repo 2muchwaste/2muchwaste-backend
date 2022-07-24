@@ -12,7 +12,7 @@ router
 router
   .route('/:type')
   .get(controller.getCost(CostModel))
-  .put(controller.updatePrice(CostModel))
+  .patch(controller.updatePrice(CostModel))
   .delete(controller.deleteByType(CostModel));
 
 export default router;

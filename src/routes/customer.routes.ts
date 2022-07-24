@@ -8,7 +8,7 @@ const router: Router = express.Router();
 const customerController = new CustomerController(Roles.CUSTOMER.toString());
 
 router.get('/:id', customerHandlers, customerController.getByID(CustomerModel));
-router.put(
+router.patch(
   '/:id',
   customerHandlers,
   customerController.updateByID(CustomerModel)
@@ -28,7 +28,7 @@ router.post(
   customerHandlers,
   customerController.addNotification(CustomerModel)
 );
-router.put(
+router.patch(
   '/:cf/notifications/:id',
   customerHandlers,
   customerController.readNotification(CustomerModel)

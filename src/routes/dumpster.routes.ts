@@ -12,15 +12,15 @@ router.post('/', operatorHandlers, controller.createOne(DumpsterModel));
 router
   .route('/:id')
   .get(controller.getByID(DumpsterModel))
-  .put(controller.updateByID(DumpsterModel))
+  .patch(controller.updateByID(DumpsterModel))
   .delete(controller.deleteByID(DumpsterModel));
 router
   .route('/:id/availability')
   .get(controller.getAvailability(DumpsterModel))
-  .put(controller.setAvailability(DumpsterModel));
+  .patch(controller.setAvailability(DumpsterModel));
 router
   .route('/:id/weight')
   .get(controller.getWeight(DumpsterModel))
-  .put(controller.setWeight(DumpsterModel));
+  .patch(controller.setWeight(DumpsterModel));
 
 export default router;

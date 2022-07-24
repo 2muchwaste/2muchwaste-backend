@@ -14,7 +14,7 @@ router
 router
   .route('/:id')
   .get(controller.getByID(DepositModel))
-  .put(controller.updateByID(DepositModel))
+  .patch(controller.updateByID(DepositModel))
   .delete(controller.deleteByID(DepositModel));
 router
   .route('/dumpster/:id')
