@@ -11,7 +11,7 @@ router.route('/').get(controller.getAll(UserModel));
 router
   .route('/:id')
   .get(controller.getByID(UserModel))
-  .put(controller.updateByID(UserModel))
+  .patch(controller.updateByID(UserModel))
   .delete(controller.deleteByID(UserModel));
 
 export default router;

@@ -10,7 +10,7 @@ router
   .route('/:id')
   .get(controller.getByID(RoleModel))
   .post(controller.createOne(RoleModel))
-  .put(controller.updateByID(RoleModel))
+  .patch(controller.updateByID(RoleModel))
   .delete(controller.deleteByID(RoleModel));
 
 export default router;
