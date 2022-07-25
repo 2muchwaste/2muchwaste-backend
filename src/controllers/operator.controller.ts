@@ -9,14 +9,16 @@ import DumpsterService from '../services/dumpster.service';
 export default class OperatorController extends UserController<IOperator> {
   getDistrictsFromOpCF =
     (model: Model<IOperator>) => async (req: Request, res: Response) => {
-      model.find(
-        { cf: req.params.cf },
-        { districts: 1, _id: 0, __t: 0 },
-        (err: String, doc: Model<IOperator>) => {
-          if (err) res.send(err);
-          res.json(doc);
-        }
-      );
+      model
+        .find(
+          { cf: req.params.cf },
+          { districts: 1, _id: 0, __t: 0 },
+          (err: String, doc: Model<IOperator>) => {
+            if (err) res.send(err);
+            res.json(doc);
+          }
+        )
+        .populate('districts', '-__v');
     };
 
   addDistrictToOperator =
