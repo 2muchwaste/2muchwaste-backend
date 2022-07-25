@@ -15,7 +15,7 @@ router
   .patch(controller.updateByID(OperatorNotificationModel))
   .delete(controller.deleteByID(OperatorNotificationModel));
 router
-  .route('/pending')
+  .route('/status/pending')
   .get(controller.getPendingNotifications(OperatorNotificationModel));
 router
   .route('/problems/full')
