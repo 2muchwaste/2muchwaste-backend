@@ -1,9 +1,12 @@
 import express, { Router } from 'express';
 import OperatorNotificationController from '../controllers/operatorNotification.controller';
 import OperatorNotificationModel from '../models/operatorNotification.model';
+import { operatorHandlers } from '../utils/constants';
 
 const router: Router = express.Router();
 const controller = new OperatorNotificationController('OperatorNotification');
+
+router.use(operatorHandlers);
 
 router
   .route('/')
@@ -17,6 +20,12 @@ router
 router
   .route('/status/pending')
   .get(controller.getPendingNotifications(OperatorNotificationModel));
+router
+  .route('/status/inprogress')
+  .get(controller.getInProgressNotifications(OperatorNotificationModel));
+router
+  .route('/status/complete')
+  .get(controller.getCompletedNotifications(OperatorNotificationModel));
 router
   .route('/problems/full')
   .get(controller.getNotificationsByProblemFull(OperatorNotificationModel));

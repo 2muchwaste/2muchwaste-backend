@@ -33,6 +33,26 @@ export default class OperatorNotificationController extends BaseController<IOper
         }
       );
     };
+  getInProgressNotifications =
+    (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      model.find(
+        { status: NotificationStatus.IN_PROGRESS.toString() },
+        (err: String, doc: Model<IOperatorNotification>) => {
+          if (err) res.send(err);
+          else res.json(doc);
+        }
+      );
+    };
+  getCompletedNotifications =
+    (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
+      model.find(
+        { status: NotificationStatus.COMPLETE.toString() },
+        (err: String, doc: Model<IOperatorNotification>) => {
+          if (err) res.send(err);
+          else res.json(doc);
+        }
+      );
+    };
   getNotificationsByProblemFull =
     (model: Model<IOperatorNotification>) => (req: Request, res: Response) => {
       this.service.getNotificationError(
