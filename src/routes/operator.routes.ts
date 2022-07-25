@@ -2,11 +2,12 @@ import express, { Router } from 'express';
 import OperatorController from '../controllers/operator.controller';
 import { Roles } from '../enums/Roles';
 import OperatorModel from '../models/operator.model';
-import { operatorHandlers } from '../utils/constants';
+import { adminHandlers, operatorHandlers } from '../utils/constants';
 
 const router: Router = express.Router();
 const controller = new OperatorController(Roles.OPERATOR.toString());
 
+router.get('/', adminHandlers, controller.getAll(OperatorModel));
 router.use(operatorHandlers);
 router
   .route('/:id')
