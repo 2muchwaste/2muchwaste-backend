@@ -1,6 +1,8 @@
 # 2MuchWaste - Backend
 
-First run: `npm install`
+First run: 
+- `npm install`
+- create a mongodb connection with the name `2muchwaste`
 
 ## Scripts
 - `npm run build`: compile *.ts in *.js in dist folder
