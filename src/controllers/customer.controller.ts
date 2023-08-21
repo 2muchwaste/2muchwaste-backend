@@ -20,14 +20,14 @@ export default class CustomerController extends UserController<ICustomer> {
       let notification;
       if (req.body.hasOwnProperty('depositID'))
         notification = {
-          date: new Date().toISOString(),
+          date: new Date(),
           text: req.body.text,
           read: false,
           depositID: req.body.depositID,
         };
       else
         notification = {
-          date: new Date().toISOString(),
+          date: new Date(),
           text: req.body.text,
           read: false,
         };

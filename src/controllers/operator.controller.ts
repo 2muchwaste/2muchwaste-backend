@@ -56,7 +56,7 @@ export default class OperatorController extends UserController<IOperator> {
 
   addEmptyToOperator =
     (model: Model<IOperator>) => async (req: Request, res: Response) => {
-      let date = new Date().toISOString();
+      const date = new Date();
       model.findOneAndUpdate(
         { cf: req.params.cf },
         {
