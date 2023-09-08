@@ -20,4 +20,7 @@ export default class DumpsterController extends BaseController<IDumpster> {
   setWeight = (model: Model<IDumpster>) => (req: Request, res: Response) => {
     this.service.setWeight(model, req, res);
   };
+  getByAreaAndZipCode = (model: Model<IDumpster>) => (req: Request, res: Response) => {
+    this.service.getDumpstersByAreaAndZipCode(model, req, res);
+  }
 }

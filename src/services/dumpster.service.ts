@@ -59,4 +59,13 @@ export default class DumpsterService {
       }
     );
   };
+    getDumpstersByAreaAndZipCode = (model: Model<IDumpster>, req: Request, res: Response) => {
+    model.find(
+      { area: req.params.area, zipCode: req.params.zipCode },
+      (err: String, doc: Model<IDumpster>) => {
+        if (err) res.send(err);
+        else res.json(doc);
+      }
+    );
+    }
 }

@@ -22,5 +22,8 @@ router
   .route('/:id/weight')
   .get(controller.getWeight(DumpsterModel))
   .patch(controller.setWeight(DumpsterModel), operatorHandlers);
+router
+    .route('/:zipCode/:area')
+    .get(controller.getByAreaAndZipCode(DumpsterModel));
 
 export default router;
