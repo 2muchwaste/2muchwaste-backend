@@ -10,7 +10,8 @@ export const verifyToken = async (
   next: NextFunction
 ) => {
   // @ts-ignore
-  let token = req.session.token;
+  // let token = req.session.token;
+  const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(403).send({ message: 'No token provided' });
   jwt.verify(token, getJwtSecret(), (err: any, decoded: any) => {
     if (err) return res.status(401).send({ message: 'Unauthorized!' });
