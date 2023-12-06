@@ -69,6 +69,16 @@ export default class AuthController<T extends IUser> {
           const token = jwt.sign({ _id: user._id }, secret, {
             expiresIn: 86400, // 24 hours
           });
+
+          ////////////////////////////////////
+          //INSERT LOGGED USER IN SOCKET LIST
+          ////////////////////////////////////
+          const io = req.app.get('socketio')
+          const userID = user._id.toString()
+          console.log(userID)
+          io['userslogged'].set(userID,userID)
+          /////////////////
+          
           req.session.token = token;
           res.status(200).send({
             id: user._id,
