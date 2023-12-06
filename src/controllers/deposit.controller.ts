@@ -31,13 +31,13 @@ export default class DepositController extends BaseController<IDeposit> {
                 console.log('save:' + doc);
                 if (err) res.send(err);
                 let text =
-                  'Deposit successful: ' +
+                  'Deposited ' +
                   req.body.quantity +
                   'kg of ' +
                   dumpDoc.type +
-                  ' deposited for a price of ' +
+                  ': ' +
                   req.body.quantity * costDoc.pricePerKilogram +
-                  '€. (€/kg: ' +
+                  '€ (€/kg: ' +
                   costDoc.pricePerKilogram +
                   ')';
                 CustomerModel.findByIdAndUpdate(
@@ -52,9 +52,15 @@ export default class DepositController extends BaseController<IDeposit> {
                       },
                     },
                   },
+                  {new:true},
                   (custErr: String, _custDoc: Model<ICustomer>) => {
                     if (custErr) res.send(custErr);
-                    else res.status(201).json(doc);
+                    else {
+                      const io = req.app.get('socketio')
+                      // Send the user, with new notification
+                      io.emit(io['userslogged'].get(req.body.userID), _custDoc)
+                      res.status(201).json(doc);
+                    }
                   }
                 );
               });

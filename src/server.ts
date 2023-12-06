@@ -42,6 +42,18 @@ const initial = () => {
 
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
+
+////////// Initialize sockeio ///////////
+const io = require('socket.io')(server, { 
+  cors: {
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST"]
+  }
+});
+io['userslogged'] = new Map()
+app.set('socketio',io)
+/////////////////////////////////////////
+
 server.listen(port, () =>
   console.log('Node API server started on port ' + port)
 );
