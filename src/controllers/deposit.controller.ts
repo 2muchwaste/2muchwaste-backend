@@ -22,7 +22,7 @@ export default class DepositController extends BaseController<IDeposit> {
                 date: new Date().toISOString(),
                 quantity: req.body.quantity,
                 type: dumpDoc.type,
-                price: this.getPrice(req.body.quantity,costDoc.pricePerKilogram),
+                price: this.getPrice(req.body.quantity, costDoc.pricePerKilogram),
                 openingTimeSeconds: req.body.openingTimeSeconds,
                 dumpsterID: req.body.dumpsterID,
                 userID: req.body.userID,
@@ -36,7 +36,7 @@ export default class DepositController extends BaseController<IDeposit> {
                   'kg of ' +
                   dumpDoc.type +
                   ': ' +
-                  this.getPrice(req.body.quantity,costDoc.pricePerKilogram) +
+                  this.getPrice(req.body.quantity, costDoc.pricePerKilogram) +
                   '€ (€/kg: ' +
                   costDoc.pricePerKilogram +
                   ')';
@@ -52,7 +52,7 @@ export default class DepositController extends BaseController<IDeposit> {
                       },
                     },
                   },
-                  {new:true},
+                  { new: true },
                   (custErr: String, _custDoc: Model<ICustomer>) => {
                     if (custErr) res.send(custErr);
                     else {
@@ -90,7 +90,7 @@ export default class DepositController extends BaseController<IDeposit> {
       );
     };
 
-  private getPrice(quantity:number, pricePerKilogram: number) {
-    return Math.round(quantity*pricePerKilogram*100)/100
+  private getPrice(quantity: number, pricePerKilogram: number) {
+    return Math.round(quantity * pricePerKilogram * 100) / 100
   }
 }
