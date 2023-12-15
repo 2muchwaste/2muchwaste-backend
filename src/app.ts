@@ -34,6 +34,11 @@ app.use(
 app.use(helmet());
 app.use(express.static('public', { maxAge: 86400000 }));
 
+app.use(function (req, res, next) {
+  res.removeHeader("Expect-CT")
+  next();
+});
+
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/dumpsters', dumpsterRoutes);
 app.use('/api/v1/users', userRoutes);
@@ -45,6 +50,7 @@ app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/costs', costRoutes);
 app.use('/api/v1/areas', areaRoutes);
 app.use('/api/v1/roles', roleRoutes);
+
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to 2muchwaste backend!');
 });
