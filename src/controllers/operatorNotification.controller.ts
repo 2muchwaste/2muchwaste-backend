@@ -19,8 +19,12 @@ export default class OperatorNotificationController extends BaseController<IOper
         status: NotificationStatus.PENDING,
       });
       newDoc.save((err: String, doc: Model<IOperatorNotification>) => {
-        if (err) res.send(err);
-        res.status(201).json(doc);
+        if (err) res.send(err)
+        else{
+          const io = req.app.get('socketio')
+          io.emit('operators', doc)
+          res.status(201).json(doc);
+        }
       });
     };
   getPendingNotifications =
