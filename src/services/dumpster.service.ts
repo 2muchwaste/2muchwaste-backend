@@ -53,6 +53,7 @@ export default class DumpsterService {
       {
         $set: { actualWeight: 0.0 },
       },
+      {new: true},
       (err: String, doc: Model<IDumpster>) => {
         if (err) res.send(err);
         else res.json(doc);
