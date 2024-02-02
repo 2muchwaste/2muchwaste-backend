@@ -35,6 +35,10 @@ const OperatorNotificationSchema = new Schema<IOperatorNotification>({
     required: false,
     ref: 'User',
   },
+  date:{
+    type: Date,
+    required: true,
+  }
 });
 
 export default mongoose.model(
